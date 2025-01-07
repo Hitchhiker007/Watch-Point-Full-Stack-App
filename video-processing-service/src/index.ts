@@ -12,12 +12,22 @@ app.post("/process-video", (req, res) => {
     // error handling
     // error message 400 means its client sided, gave the wrong params / request
     if (!inputFilePath) {
-        res.status(400).send("Bad Request: Missing input file path.")
+        res.status(400).send("Bad Request: Missing input file path.");
     }
     if (!outputFilePath) {
-        res.status(400).send("Bad Request: Missing output file path.")
+        res.status(400).send("Bad Request: Missing output file path.");
     }
 
+    ffmpeg(inputFilePath)
+        .outputOptions("-vf", "scale=-1:360")//360p
+        .on("end", () => {
+            res.status(200).send("Processing finished successfully.")
+        })
+        .on("error", (err) => {
+            console.log(`An error occured: ${err.message}`);
+            res.status(500).send(`Internal Server Error: ${err.message}`);
+        })
+        .save(outputFilePath);
 });
 
 app.listen(port, () => {
