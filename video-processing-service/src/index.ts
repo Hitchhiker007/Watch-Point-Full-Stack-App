@@ -7,7 +7,7 @@ const port = 3000;
 app.post("/process-video", (req, res) => {
     //Get path of the input video file from request body
     const inputFilePath = req.body.inputFilePath;
-
+    const outputFilePath = req.body.outputFilePath;
 });
 
 app.listen(port, () => {
