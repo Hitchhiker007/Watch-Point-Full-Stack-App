@@ -14,10 +14,11 @@ setupDirectories();
 
 // Process a video file from Cloud Storage into 360p
 const processVideoHandler: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+    let data;
     try {
         // Parse the Pub/Sub message
         const message = Buffer.from(req.body.message.data, 'base64').toString('utf8');
-        const data = JSON.parse(message);
+        data = JSON.parse(message);
 
         if (!data.name) {
             res.status(400).send('Bad Request: missing filename.');
@@ -34,12 +35,13 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
         try {
             await convertVideo(inputFileName, outputFileName);
         } catch (err) {
-            console.error('Error processing video:', err);
+            const error = err as Error; // Type assertion here
+            console.error('Error processing video:', error);
             await Promise.all([
                 deleteRawVideo(inputFileName),
                 deleteProcessedVideo(outputFileName),
             ]);
-            res.status(500).send('Processing failed');
+            res.status(500).send(`Processing failed: ${error.message || error}`);
             return;
         }
 
@@ -53,9 +55,10 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
         ]);
 
         res.status(200).send('Processing finished successfully');
-    } catch (error) {
+    } catch (err) {
+        const error = err as Error; // Type assertion here
         console.error('Error:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send(`Internal Server Error: ${error.message || error}`);
     }
 };
 
