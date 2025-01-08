@@ -1,39 +1,70 @@
-import express from "express";
-import ffmpeg from "fluent-ffmpeg";
+import express, { Request, Response, RequestHandler } from 'express';
+
+import {
+    uploadProcessedVideo,
+    downloadRawVideo,
+    deleteRawVideo,
+    deleteProcessedVideo,
+    convertVideo,
+    setupDirectories
+} from './storage';
+
+// Create the local directories for videos
+setupDirectories();
+
+// Process a video file from Cloud Storage into 360p
+const processVideoHandler: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+    try {
+        // Parse the Pub/Sub message
+        const message = Buffer.from(req.body.message.data, 'base64').toString('utf8');
+        const data = JSON.parse(message);
+
+        if (!data.name) {
+            res.status(400).send('Bad Request: missing filename.');
+            return;
+        }
+
+        const inputFileName = data.name;
+        const outputFileName = `processed-${inputFileName}`;
+
+        // Download the raw video from Cloud Storage
+        await downloadRawVideo(inputFileName);
+
+        // Process the video into 360p
+        try {
+            await convertVideo(inputFileName, outputFileName);
+        } catch (err) {
+            console.error('Error processing video:', err);
+            await Promise.all([
+                deleteRawVideo(inputFileName),
+                deleteProcessedVideo(outputFileName),
+            ]);
+            res.status(500).send('Processing failed');
+            return;
+        }
+
+        // Upload the processed video to Cloud Storage
+        await uploadProcessedVideo(outputFileName);
+
+        // Cleanup local files
+        await Promise.all([
+            deleteRawVideo(inputFileName),
+            deleteProcessedVideo(outputFileName),
+        ]);
+
+        res.status(200).send('Processing finished successfully');
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 const app = express();
-// specify that our server is using json
 app.use(express.json());
 
-app.post("/process-video", (req, res) => {
-    //Get path of the input video file from request body
-    const inputFilePath = req.body.inputFilePath;
-    const outputFilePath = req.body.outputFilePath;
+app.post('/process-video', processVideoHandler);
 
-    // error handling
-    // error message 400 means its client sided, gave the wrong params / request
-    if (!inputFilePath) {
-        res.status(400).send("Bad Request: Missing input file path.");
-    }
-    if (!outputFilePath) {
-        res.status(400).send("Bad Request: Missing output file path.");
-    }
-
-    ffmpeg(inputFilePath)
-        .outputOptions("-vf", "scale=-1:360")//360p
-        .on("end", () => {
-            res.status(200).send("Processing finished successfully.")
-        })
-        .on("error", (err) => {
-            console.log(`An error occured: ${err.message}`);
-            res.status(500).send(`Internal Server Error: ${err.message}`);
-        })
-        .save(outputFilePath);
-});
-
-// important
-// if the environment port is undefined it is set to port 3000
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
