@@ -22,7 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// intialize auth
+// initialize auth
 const auth = getAuth(app);
 
 // signs in the user with a Google popup
