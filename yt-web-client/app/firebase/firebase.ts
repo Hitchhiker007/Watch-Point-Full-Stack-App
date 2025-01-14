@@ -22,16 +22,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+// intialize auth
 const auth = getAuth(app);
 
+// signs in the user with a Google popup
+// returns a promise that resolves with the user credentials
 export function signInWithGoogle() {
     return signInWithPopup(auth, new GoogleAuthProvider());
 }
-
+// signs the user out
+// returns a promise that resolves when the user is signed out
 export function signOut() {
     return auth.signOut();
 }
 
+// Trigger a callback when user auth state changes
+// returns function to unsubscribe callback
 export function onAuthStateChangedHelper(callback: (user: User | null) => void) {
     return onAuthStateChanged(auth, callback);
 }
