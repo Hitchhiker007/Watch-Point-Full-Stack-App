@@ -1,0 +1,18 @@
+/* global.css */
+
+/* Apply a gradient background to the entire app */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #800080, #4b0082); /* Purple to dark purple */
+  color: white; /* Optional: Set a text color that contrasts with the background */
+  font-family: Arial, sans-serif; /* Optional: Set a default font */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+}
+
+/* Reset other styles to avoid default margins or paddings */
+html, body, #__next {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
