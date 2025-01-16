@@ -15,15 +15,29 @@ export default function Navbar() {
     // javascript closure to research
     // state within a funciton is still mantained after a function has been executed
     const [user, setUser] = useState<User | null>(null);
+    const [darkMode, setDarkMode] = useState<boolean>(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedHelper((user) => {
             setUser(user);
         });
 
+        // Update body class for dark mode
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+
         // cleanup subscription on unmount
         return () => unsubscribe();
-    });
+    }, [darkMode]);
+
+    // Toggle dark mode
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
+
 
     return (
         <nav className={styles.nav}>
@@ -48,6 +62,11 @@ export default function Navbar() {
                     <Link href="/settings">Settings</Link>
                 </li>
             </ul>
+
+            {/* Dark Mode Button */}
+            <button onClick={toggleDarkMode} className={styles.darkModeButton}>
+                {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
 
             {/* // TODO: Add a upload button */}
 

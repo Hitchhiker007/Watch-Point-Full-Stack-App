@@ -1,5 +1,12 @@
 /* global.css */
 
+:root {
+  --bg-light: linear-gradient(135deg, #800080, #4b0082); /* Purple to dark purple */
+  --bg-dark: linear-gradient(135deg, #1e1e1e, #121212); /* Dark background */
+  --text-light: white;
+  --text-dark: #cccccc; /* Lighter text for dark mode */
+}
+
 /* Apply a gradient background to the entire app */
 body {
   margin: 0;
@@ -10,9 +17,23 @@ body {
   min-height: 100vh; /* Ensure it covers the full viewport height */
 }
 
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+
 /* Reset other styles to avoid default margins or paddings */
 html, body, #__next {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+.darkModeButton {
+  background-color: transparent;
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
 }
