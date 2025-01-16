@@ -1,6 +1,13 @@
 .nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
+    justify-content: space-between; /* Ensures space between logo and button */
+    align-items: center;           /* Aligns items vertically in the center */
+    padding: 10px 20px;            /* Add padding for spacing inside the navbar */
+    background-color: transparent; /* Make sure it matches your background */
   }
+  
+  .logo {
+    height: auto;
+  }
+  
+  
