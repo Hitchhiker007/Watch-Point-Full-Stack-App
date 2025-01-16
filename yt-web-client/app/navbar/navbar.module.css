@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #202020; /* Dark background for navbar */
+  gap: 20px; /* Add spacing between the logo and links */
   padding: 10px 20px;
 }
 
@@ -12,6 +13,9 @@
 
 .logo {
   cursor: pointer;
+  background-color: white;
+  padding: 15px;
+  border-radius: 4px; 
 }
 
 .navLinks {
