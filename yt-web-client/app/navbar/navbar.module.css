@@ -1,0 +1,39 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #202020; /* Dark background for navbar */
+  padding: 10px 20px;
+}
+
+.logoLink {
+  text-decoration: none;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px; /* Add space between links */
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks li {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: #fff; /* White text for links */
+  transition: color 0.3s ease;
+}
+
+.navLinks li a:hover {
+  color: #065fd4; /* Light blue on hover */
+}
