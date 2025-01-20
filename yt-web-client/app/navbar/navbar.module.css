@@ -53,4 +53,9 @@
   background-color: black;
   border: 1px solid transparent;
   color: white;
+
+}
+
+.darkButton {
+  background-color: white;
 }

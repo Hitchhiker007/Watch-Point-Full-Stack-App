@@ -67,7 +67,7 @@ export default function Navbar() {
             </ul>
 
             {/* Dark Mode Button */}
-            <button onClick={toggleDarkMode} className={styles.darkModeButton}>
+            <button onClick={toggleDarkMode} className={`${styles.darkModeButton} ${darkMode ? styles.lightButton : styles.darkButton}`}>
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
 
