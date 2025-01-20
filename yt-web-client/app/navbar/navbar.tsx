@@ -53,6 +53,9 @@ export default function Navbar() {
                     <Link href="/">Home</Link>
                 </li>
                 <li>
+                    <Link href="/">Watch</Link>
+                </li>
+                <li>
                     <Link href="/my-page">My Page</Link>
                 </li>
                 <li>
