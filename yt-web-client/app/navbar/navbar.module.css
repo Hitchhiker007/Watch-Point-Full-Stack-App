@@ -41,3 +41,16 @@
 .navLinks li a:hover {
   color: #065fd4; /* Light blue on hover */
 }
+
+.darkModeButton {
+  margin-left: auto;
+  font-family: "Roboto", "Arial", sans-serif;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.darkModeButton:hover {
+  background-color: black;
+  border: 1px solid transparent;
+  color: white;
+}
