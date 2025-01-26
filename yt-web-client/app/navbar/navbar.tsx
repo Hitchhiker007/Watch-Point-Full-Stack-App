@@ -7,6 +7,7 @@ import SignIn from "./sign-in";
 import { onAuthStateChangedHelper } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
+import Upload from './upload';
 
 
 export default function Navbar() {
@@ -47,6 +48,10 @@ export default function Navbar() {
                     src="/youtube-logo.svg" alt="youtube-logo"></Image>
             </Link>
 
+            {
+                user && <Upload />
+            }
+
             {/* Navigation Links */}
             <ul className={styles.navLinks}>
                 <li>
@@ -71,9 +76,7 @@ export default function Navbar() {
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
 
-            {/* // TODO: Add a upload button */}
-
             <SignIn user={user} />
-        </nav>
+        </nav >
     );
 }
