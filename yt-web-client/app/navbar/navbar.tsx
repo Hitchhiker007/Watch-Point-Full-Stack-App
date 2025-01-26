@@ -49,6 +49,7 @@ export default function Navbar() {
             </Link>
 
             {
+                // if user evalautes to true render the upload button
                 user && <Upload />
             }
 
