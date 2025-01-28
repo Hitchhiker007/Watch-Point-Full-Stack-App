@@ -1,4 +1,5 @@
 import express, { Request, Response, RequestHandler } from 'express';
+import { isVideoNew, setVideo } from './firestore';
 
 import {
     uploadProcessedVideo,
@@ -25,8 +26,20 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
             return;
         }
 
-        const inputFileName = data.name;
+        const inputFileName = data.name; // Format of <UID>-<DATE>.<EXTENSION>
         const outputFileName = `processed-${inputFileName}`;
+        const videoId = inputFileName.split('.')[0];
+
+
+        if (!isVideoNew(videoId)) {
+            res.status(400).send('Bad Request: video already processing or processed.');
+        } else {
+            await setVideo(videoId, {
+                id: videoId,
+                uid: videoId.split('-')[0],
+                status: 'processing'
+            });
+        }
 
         // Download the raw video from Cloud Storage
         await downloadRawVideo(inputFileName);
@@ -47,6 +60,11 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
 
         // Upload the processed video to Cloud Storage
         await uploadProcessedVideo(outputFileName);
+
+        await setVideo(videoId, {
+            status: 'processed',
+            filename: outputFileName
+        })
 
         // Cleanup local files
         await Promise.all([
