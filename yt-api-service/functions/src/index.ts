@@ -72,6 +72,21 @@ export interface Video {
     description?: string
 }
 
+// doesnt need request, its a naive solution, where we're just going to fetch 10 videos from the database
+// and render them in the ui
+
+// no pagenation
+// Sorting: Videos are often sorted by various criteria such as:
+
+// Date created (newest first).
+// Views or likes (most popular first).
+// Relevance (based on search terms, tags, etc.).
+// Currently no filter on the videos for certain criteria (e.g., category, duration, tags, or user preferences).
+
+// No Metadatae as Video databases typically contain metadata such as video title, description, length, views, and so on.  for Pagination to work we need to return these fields along with the video URL or video ID.
+
+// curently not tailored to the users preferences or subscriptions
+
 export const getVideos = onCall({ maxInstances: 1 }, async () => {
     const querySnapshot =
         await firestore.collection(videoCollectionId).limit(10).get();
