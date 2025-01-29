@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 export default async function Home() {
 
+  // TODO:
+  // add filter to filter out videos still processing
   const videos = await getVideos();
 
   return (
