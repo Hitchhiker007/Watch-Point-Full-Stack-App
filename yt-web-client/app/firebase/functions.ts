@@ -14,13 +14,24 @@ export interface Video {
     description?: string
 }
 
+
+// Define the expected structure of the response from generateUploadUrl
+interface GenerateUploadUrlResponse {
+    url: string; // The URL will be directly on the response, not inside a 'data' object
+}
+
+// Function to upload a video using the signed URL
 export async function uploadVideo(file: File) {
-    const response: any = await generateUploadUrl({
+    // Call the Firebase function and assert that response.data is of type GenerateUploadUrlResponse
+    const response = await generateUploadUrl({
         fileExtension: file.name.split('.').pop()
     });
 
-    // Upload file via signed URL
-    const uploadResult = await fetch(response?.data?.url, {
+    // TypeScript now understands that response.data has the correct shape
+    const uploadUrl = (response.data as GenerateUploadUrlResponse).url;
+
+    // Upload the file via the signed URL
+    const uploadResult = await fetch(uploadUrl, {
         method: 'PUT',
         body: file,
         headers: {
@@ -31,8 +42,9 @@ export async function uploadVideo(file: File) {
     return uploadResult;
 }
 
+
 export async function getVideos() {
-    const response: any = await getVideosFunction();
+    const response = await getVideosFunction();
     return response.data as Video[];
 }
 
