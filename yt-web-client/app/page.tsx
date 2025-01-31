@@ -13,8 +13,8 @@ export default async function Home() {
   return (
     <main>
       {
-        videos.map((video) => (
-          // Use `video.id` or `video.filename` as the key for each video div
+      videos.map((video) => (
+      // Use `video.id` or `video.filename` as the key for each video div
       <div key={video.id || video.filename}> 
           <Link href={`/watch?v=${video.filename}`}>
             <Image src={'/thumbnail.png'} alt='video' width={120} height={80}
