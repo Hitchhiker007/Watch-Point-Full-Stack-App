@@ -14,6 +14,7 @@ const storage = new Storage();
 const rawVideoBucketName = "major-will-raw-videos";
 
 const videoCollectionId = "videos";
+// const userCollectionId = "users";
 
 export interface Video {
     id?: string,
@@ -86,5 +87,6 @@ export const getVideos = onCall({ maxInstances: 1 }, async () => {
     const querySnapshot =
         // get a limit of 10 videos
         await firestore.collection(videoCollectionId).limit(10).get();
+        // await firestore.collection(userCollectionId).limit(10).get;
     return querySnapshot.docs.map((doc) => doc.data());
 });
