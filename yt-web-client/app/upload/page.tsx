@@ -1,9 +1,11 @@
-import styles from "./upload.module.css";
+// import styles from "./upload.module.css";
+// import Form from "./handle-upload";
+// import FormDataType from './handle-upload';
+import Form from "./components/form"
 
-export default async function Upload() {
 
+export default function Upload() {
     return (
-        <div className={styles.container}></div>
+        <div><Form/></div>
     );
-
 }
