@@ -33,6 +33,9 @@ export default function Navbar() {
                     })
                     .catch((error) => {
                     });
+                } else {
+                    console.log("phot url is NULL");
+                    setPhotoURL(null);
                 }
             });
 
@@ -43,6 +46,9 @@ export default function Navbar() {
         const toggleDarkMode = () => {
             setDarkMode(!darkMode);
         };
+
+        // Fallback/default image for signed-out users
+        const defaultImage = '/TheThing.png'; // Update this with your default image path
     
 
     return (
@@ -82,18 +88,17 @@ export default function Navbar() {
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
 
-             {/* Display User's Profile Photo if it exists */}
-             {user && photoURL && (
+            
                 <div className={styles.userProfile}>
                     <Image
-                        src={photoURL}
+                        src={user ? (photoURL || defaultImage) : defaultImage}
                         alt="User Profile"
                         width={40}
                         height={40}
                         className={styles.profileImage}
                     />
                 </div>
-            )}
+          
             <SignIn user={user} />
         </nav >
     );

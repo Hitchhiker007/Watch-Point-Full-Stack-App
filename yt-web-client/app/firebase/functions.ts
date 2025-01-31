@@ -56,6 +56,9 @@ export async function getVideos() {
 export async function getPhotoUrl(): Promise<string> {
     const response = await getUserPhotoFunction();
 
+    console.log("Photo Url Response");
+    console.log(response.data);
+
     // Safely cast response data to UserPhotoResponse
     const data = response.data as UserPhotoResponse | undefined;
 
