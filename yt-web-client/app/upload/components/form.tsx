@@ -17,9 +17,6 @@ const genre = [
 ];
 
 type Values = {
-    name: string;
-    email: string;
-    age: string;
     genre: string;
     title: string;
     description: string;
@@ -27,9 +24,6 @@ type Values = {
 
 const Form = () => {
     const [values, setValues] = useState<Values>({
-        name: "",
-        email: "",
-        age: "",
         genre: "",
         title: "",
         description: "",
@@ -70,9 +64,6 @@ const Form = () => {
 
             // Reset the form after successful submission
             setValues({
-                name: "",
-                email: "",
-                age: "",
                 genre: "",
                 title: "",
                 description: "",
