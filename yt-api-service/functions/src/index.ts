@@ -90,3 +90,26 @@ export const getVideos = onCall({ maxInstances: 1 }, async () => {
         // await firestore.collection(userCollectionId).limit(10).get;
     return querySnapshot.docs.map((doc) => doc.data());
 });
+
+export const getUserPhotoUrl = onCall({ maxInstances: 1 }, async (request) => {
+    if (!request.auth) {
+        throw new functions.https.HttpsError(
+            "failed-precondition",
+            "The function must be called while authenticated."
+        );
+    }
+
+    const auth = request.auth;
+    const userRef = firestore.collection("users").doc(auth.uid);
+
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+        throw new functions.https.HttpsError(
+            "not-found",
+            "User not found in Firestore."
+        );
+    }
+
+    // Return the photoURL
+    return { photoURL: userDoc.data()?.photoUrl || "" };
+});

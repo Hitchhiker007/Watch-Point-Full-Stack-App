@@ -5,6 +5,8 @@ const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
 
 const getVideosFunction = httpsCallable(functions, 'getVideos');
 
+const getUserPhotoFunction = httpsCallable(functions, 'getUserPhotoUrl');
+
 export interface Video {
     id?: string,
     uid?: string,
@@ -12,6 +14,9 @@ export interface Video {
     status?: 'processing' | 'processed',
     title?: string,
     description?: string
+}
+export interface UserPhotoResponse {
+    photoURL: string;
 }
 
 
@@ -47,4 +52,16 @@ export async function getVideos() {
     const response = await getVideosFunction();
     return response.data as Video[];
 }
+
+export async function getPhotoUrl(): Promise<string> {
+    const response = await getUserPhotoFunction();
+
+    // Safely cast response data to UserPhotoResponse
+    const data = response.data as UserPhotoResponse | undefined;
+
+    // Check if data is valid before accessing the photoURL
+    return data?.photoURL || ""; // Default to empty string if photoURL is not available
+}
+
+
 

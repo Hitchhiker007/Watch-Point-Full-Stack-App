@@ -8,6 +8,9 @@ import { onAuthStateChangedHelper } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
 import Upload from './upload';
+import { getPhotoUrl } from "../firebase/functions";
+
+
 
 
 export default function Navbar() {
@@ -17,28 +20,30 @@ export default function Navbar() {
     // state within a funciton is still mantained after a function has been executed
     const [user, setUser] = useState<User | null>(null);
     const [darkMode, setDarkMode] = useState<boolean>(false);
+    const [photoURL, setPhotoURL] = useState<string | null>(null); // State to store photo URL
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedHelper((user) => {
             setUser(user);
-        });
+            if (user) {
+                // Fetch the user's photo URL when signed in
+                getPhotoUrl()
+                    .then((url) => {
+                        setPhotoURL(url); // Set photo URL in state
+                    })
+                    .catch((error) => {
+                    });
+                }
+            });
 
-        // Update body class for dark mode
-        if (darkMode) {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-
-        // cleanup subscription on unmount
-        return () => unsubscribe();
-    }, [darkMode]);
-
-    // Toggle dark mode
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-    };
-
+            // Cleanup subscription on unmount
+            return () => unsubscribe();
+        }, [darkMode]); // Only re-run effect if darkMode changes
+    
+        const toggleDarkMode = () => {
+            setDarkMode(!darkMode);
+        };
+    
 
     return (
         <nav className={styles.nav}>
@@ -77,6 +82,18 @@ export default function Navbar() {
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
 
+             {/* Display User's Profile Photo if it exists */}
+             {user && photoURL && (
+                <div className={styles.userProfile}>
+                    <Image
+                        src={photoURL}
+                        alt="User Profile"
+                        width={40}
+                        height={40}
+                        className={styles.profileImage}
+                    />
+                </div>
+            )}
             <SignIn user={user} />
         </nav >
     );

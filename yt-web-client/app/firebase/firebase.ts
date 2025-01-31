@@ -29,6 +29,7 @@ const auth = getAuth(app);
 export const functions = getFunctions();
 
 
+
 // signs in the user with a Google popup
 // returns a promise that resolves with the user credentials
 export function signInWithGoogle() {

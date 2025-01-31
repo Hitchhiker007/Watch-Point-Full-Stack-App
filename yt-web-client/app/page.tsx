@@ -14,8 +14,9 @@ export default async function Home() {
     <main>
       {
         videos.map((video) => (
-          <div>
-          <Link key={video.id} href={`/watch?v=${video.filename}`}>
+          // Use `video.id` or `video.filename` as the key for each video div
+      <div key={video.id || video.filename}> 
+          <Link href={`/watch?v=${video.filename}`}>
             <Image src={'/thumbnail.png'} alt='video' width={120} height={80}
               className={styles.thumbnail} />
           </Link>
