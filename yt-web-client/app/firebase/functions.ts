@@ -7,6 +7,8 @@ const getVideosFunction = httpsCallable(functions, 'getVideos');
 
 const getUserPhotoFunction = httpsCallable(functions, 'getUserPhotoUrl');
 
+const getUserEmailFunction = httpsCallable(functions, 'getUserEmail');
+
 export interface Video {
     id?: string,
     uid?: string,
@@ -17,6 +19,10 @@ export interface Video {
 }
 export interface UserPhotoResponse {
     photoURL: string;
+}
+
+export interface UserEmailResponse {
+    email: string;
 }
 
 
@@ -64,6 +70,17 @@ export async function getPhotoUrl(): Promise<string> {
 
     // Check if data is valid before accessing the photoURL
     return data?.photoURL || ""; // Default to empty string if photoURL is not available
+}
+
+export async function getUserEmail(): Promise<string> {
+    const response = await getUserEmailFunction();
+
+    console.log("User Email Response");
+    console.log(response.data);
+
+    const data = response.data as UserEmailResponse | undefined;
+
+    return data?.email || "";
 }
 
 

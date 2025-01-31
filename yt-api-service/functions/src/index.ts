@@ -113,3 +113,24 @@ export const getUserPhotoUrl = onCall({ maxInstances: 1 }, async (request) => {
     // Return the photoURL
     return { photoURL: userDoc.data()?.photoUrl || "" };
 });
+
+export const getUserEmail = onCall({ maxInstances: 1}, async (request) =>{
+    if (!request.auth) {
+        throw new functions.https.HttpsError(
+            "failed-precondition",
+            "User must be signed in or authenicated."
+        );
+    }
+    const auth = request.auth;
+    const userRef = firestore.collection("users").doc(auth.uid);
+
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+        throw new functions.https.HttpsError(
+            "not-found",
+            "User not found in Firestore."
+        );
+    }
+
+    return { email: userDoc.data()?.email || ""};
+});

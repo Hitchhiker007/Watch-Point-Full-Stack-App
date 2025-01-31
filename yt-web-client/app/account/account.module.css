@@ -1,0 +1,8 @@
+.profileImage{
+    align-items: center;
+    padding: 50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    color: white;
+}
