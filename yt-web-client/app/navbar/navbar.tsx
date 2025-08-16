@@ -31,7 +31,7 @@ export default function Navbar() {
                     .then((url) => {
                         setPhotoURL(url); // Set photo URL in state
                     })
-                    .catch((error) => {
+                    .catch((error) => { console.log(error)
                     });
                 } else {
                     console.log("phot url is NULL");

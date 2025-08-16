@@ -22,13 +22,13 @@ export default function Account(){
                     .then((url) => {
                         setPhotoURL(url); // Set photo URL in state
                     })
-                    .catch((error) => {
+                    .catch((error) => { console.log(error)
                     });
                 getUserEmail()
                     .then((email) => {
                         setUserEmail(email);
                     })
-                    .catch((error) => {
+                    .catch((error) => { console.log(error)
                     });
                 } else {
                     console.log("photo url is NULL");
