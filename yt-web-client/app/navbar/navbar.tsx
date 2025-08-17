@@ -75,15 +75,15 @@ export default function Navbar() {
                 <li>
                     <Link href="/upload">Upload</Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link href="/my-page">My Page</Link>
-                </li>
+                </li> */}
                 <li>
                     <Link href="/account">Account</Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link href="/settings">Settings</Link>
-                </li>
+                </li> */}
             </ul>
              </div>
 
