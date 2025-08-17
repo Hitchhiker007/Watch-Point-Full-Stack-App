@@ -53,16 +53,19 @@ export default function Navbar() {
 
     return (
         <nav className={styles.nav}>
+            <div className={styles.navLeft}>
             <Link href="/">
                 <Image width={90} height={20}
                     className={styles.logo}
                     src="/youtube-logo.svg" alt="youtube-logo"></Image>
             </Link>
 
-            {
+
+            {/* redundant with form upload */}
+            {/* {
                 // if user evalautes to true render the upload button
                 user && <Upload />
-            }
+            } */}
 
             {/* Navigation Links */}
             <ul className={styles.navLinks}>
@@ -82,14 +85,17 @@ export default function Navbar() {
                     <Link href="/settings">Settings</Link>
                 </li>
             </ul>
+             </div>
+
+            {/* TODO: Dark Mode Button */}
 
             {/* Dark Mode Button */}
-            <button onClick={toggleDarkMode} className={`${styles.darkModeButton} ${darkMode ? styles.lightButton : styles.darkButton}`}>
+            {/* <button onClick={toggleDarkMode} className={`${styles.darkModeButton} ${darkMode ? styles.lightButton : styles.darkButton}`}>
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
-            </button>
+            </button> */}
 
             
-                <div className={styles.userProfile}>
+                <div className={styles.userProfileContainer}>
                     <Image
                         src={user ? (photoURL || defaultImage) : defaultImage}
                         alt="User Profile"
@@ -97,9 +103,8 @@ export default function Navbar() {
                         height={40}
                         className={styles.profileImage}
                     />
-                </div>
-          
-            <SignIn user={user} />
+                    <SignIn user={user} />
+                    </div>
         </nav >
     );
 }

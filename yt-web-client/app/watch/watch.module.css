@@ -1,18 +1,69 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    color: white; /* Optional: Text color */
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .videoPlayer {
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Shadow around video */
-    border-radius: 8px; /* Optional: Rounded corners */
-    overflow: hidden; /* Optional: Prevent overflow for rounded corners */
-  }
- 
+.watchPage {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  color: white;
+}
+
+/* Left main content */
+.mainContent {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.videoPlayer {
+  background: black;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.videoTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Channel info (uploader) */
+.channelInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profileImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.videoMeta {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.genre {
+  font-style: italic;
+  color: #bbb;
+}
+
+/* Sidebar (recommended videos) */
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-left: 1px solid rgba(255,255,255,0.1);
+  padding-left: 16px;
+}
+
+.recommended {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

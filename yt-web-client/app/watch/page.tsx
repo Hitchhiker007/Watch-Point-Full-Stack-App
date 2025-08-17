@@ -7,7 +7,9 @@ import { functions } from "../firebase/firebase"; // your initialized functions
 import { httpsCallable } from "firebase/functions";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../firebase/firebase"; // your initialized Firebase app
+import { getVideos } from "../firebase/functions";
 import VideoUploader from "./uploader";
+import SidebarRecommended from "./sideBarRecommended";
 
 export interface Video {
   id?: string;               
@@ -37,6 +39,13 @@ const VideoPlayer = () => {
      
   useEffect(() => {
     if (!videoParam) return;
+
+    // Reset previous video info
+    setVideoSource(null);
+    setVideoTitle("");
+    setVideoDescription("");
+    setVideoGenre("");
+    setUserId("");
 
     console.log(videoParam)
     const cleanFilename = videoParam.replace(/^processed-/, '');
@@ -74,25 +83,48 @@ const VideoPlayer = () => {
   
 
     return (
-        <div className={styles.videoPlayer}>
-            <h1>{videoTitle}</h1>
-            <video controls width="640" height="360">
-                <source src={videoPrefix + videoSource} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
-            <p>Description</p>
-            <p>{videoDescription}</p>
-            <p>Genre: {videoGenre}</p>
-            <VideoUploader uploaderUid={userId} />
-        </div>
-    );
+  <div className={styles.watchPage}>
+    {/* LEFT: Video + Info */}
+    <div className={styles.mainContent}>
+      <div className={styles.videoPlayer}>
+        <video controls width="100%" height="auto">
+          <source src={videoPrefix + videoSource} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <h1 className={styles.videoTitle}>{videoTitle}</h1>
+
+      {/* Channel Info */}
+      <div className={styles.channelInfo}>
+        <VideoUploader uploaderUid={userId} />
+      </div>
+
+      {/* Description */}
+      <div className={styles.videoMeta}>
+        <p>{videoDescription}</p>
+        <p className={styles.genre}>Genre: {videoGenre}</p>
+      </div>
+    </div>
+
+    {/* RIGHT: Recommended Videos placeholder */}
+    <aside className={styles.sidebar}>
+      <h3>Recommended</h3>
+      <div className={styles.recommended}>
+        <SidebarRecommended />
+      </div>
+    </aside>
+  </div>
+);
 };
 
 export default function Watch() {
+    const searchParams = useSearchParams();
+    const videoParam = searchParams.get('v');
     return (
         <div className={styles.container}>
             <Suspense fallback={<div>Loading video...</div>}>
-                <VideoPlayer />
+               <VideoPlayer key={videoParam || 'empty'} />
             </Suspense>
         </div>
     );

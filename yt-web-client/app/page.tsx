@@ -2,7 +2,7 @@ import { getVideos } from "./firebase/functions";
 import styles from './page.module.css'
 import Image from 'next/image';
 import Link from 'next/link';
-
+import VideoCard from "./components/videoCard";
 
 export default async function Home() {
 
@@ -12,19 +12,7 @@ export default async function Home() {
 
   return (
     <main>
-      {
-      videos.map((video) => (
-      // Use `video.id` or `video.filename` as the key for each video div
-      <div key={video.id || video.filename}> 
-          <Link href={`/watch?v=${video.filename}`}>
-            <Image src={'/thumbnail.png'} alt='video' width={120} height={80}
-              className={styles.thumbnail} />
-          </Link>
-          {/* Video Title */}
-          <div className={styles.title}>{video.title}</div> {/* Display video title */}
-          </div>
-        ))
-      }
+    {videos.map(v => <VideoCard key={v.id || v.filename} video={v} />)}
     </main>
   );
 }

@@ -1,10 +1,17 @@
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #202020; /* Dark background for navbar */
-  gap: 20px; /* Add spacing between the logo and links */
+  justify-content: space-between; /* keeps left and right sections separate */
+  background-color: #202020;
   padding: 10px 20px;
+  gap: 20px;
+}
+
+/* Wrap the logo + links together */
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* spacing between logo and links */
 }
 
 .logoLink {
@@ -58,4 +65,17 @@
 
 .darkButton {
   background-color: white;
+}
+
+.userProfileContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between profile image and SignIn */
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }

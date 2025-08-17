@@ -43,8 +43,8 @@ export default function VideoUploader({ uploaderUid }: VideoUploaderProps) {
       <Image
         src={photoURL || defaultImage}
         alt="Uploader Profile"
-        width={50}
-        height={50}
+        width={75}
+        height={75}
         className={styles.profileImage}
       />
       <h2>Uploader: {email || defaultEmail}</h2>
