@@ -4,7 +4,13 @@ import React, { useState } from "react";
 import CustomTextField from "./CustomTextField";
 import CustomDropDown from "./CustomDropDown";
 import styles from "./form.module.css";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../../firebase/firebase";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { app } from "../../firebase/firebase"; // or however you init
 import { uploadVideo } from "../../firebase/functions";
+
+const firestore = getFirestore(app);
 
 const genre = [
     { value: "comedy", label: "comedy" },
@@ -44,35 +50,38 @@ const Form = () => {
         }
     };
 
-    // Handle form submission (including file upload)
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        
-        if (!selectedFile) {
-            alert('No video file selected!');
-            return;
-        }
+ // client Form.tsx (inside handleSubmit)
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-        // Handle form submission and file upload
-        try {
-            const uploadResponse = await uploadVideo(selectedFile);
-            console.log(uploadResponse);
-            alert(`File uploaded successfully. Server responded with: ${JSON.stringify(uploadResponse)}`);
+  if (!selectedFile) {
+    alert("No video file selected!");
+    return;
+  }
 
-            // You can also log other form data here
-            console.log('Form data:', values);
+  if (!values.title || !values.description || !values.genre) {
+    alert("Please fill in all fields before uploading.");
+    return;
+  }
 
-            // Reset the form after successful submission
-            setValues({
-                genre: "",
-                title: "",
-                description: "",
-            });
-            setSelectedFile(null); // Reset selected file
-        } catch (error) {
-            alert(`Failed to upload file: ${error}`);
-        }
-    };
+  try {
+
+    await uploadVideo(selectedFile, {
+      title: values.title,
+      description: values.description,
+      genre: values.genre
+    });
+
+    alert("Video uploaded successfully with metadata!");
+
+    // Reset form
+    setValues({ genre: "", title: "", description: "" });
+    setSelectedFile(null);
+  } catch (error) {
+    console.error(error);
+    alert(`Failed to upload file: ${error}`);
+  }
+};
 
     return (
         <div className={styles.container}>

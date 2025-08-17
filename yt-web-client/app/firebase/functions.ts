@@ -9,6 +9,12 @@ const getUserPhotoFunction = httpsCallable(functions, 'getUserPhotoUrl');
 
 const getUserEmailFunction = httpsCallable(functions, 'getUserEmail');
 
+// Callable functions
+const generateUploadUrlFn = httpsCallable<
+  { fileExtension: string; title: string; description: string; genre: string },
+  { url: string; fileName: string }
+>(functions, "generateUploadUrl");
+
 export interface Video {
     id?: string,
     uid?: string,
@@ -17,6 +23,13 @@ export interface Video {
     title?: string,
     description?: string
 }
+
+export interface VideoMetadata {
+  title: string;
+  description: string;
+  genre: string;
+}
+
 export interface UserPhotoResponse {
     photoURL: string;
 }
@@ -32,25 +45,23 @@ interface GenerateUploadUrlResponse {
 }
 
 // Function to upload a video using the signed URL
-export async function uploadVideo(file: File) {
-    // Call the Firebase function and assert that response.data is of type GenerateUploadUrlResponse
-    const response = await generateUploadUrl({
-        fileExtension: file.name.split('.').pop()
-    });
+export async function uploadVideo(file: File, metadata: VideoMetadata) {
+    // Call Firebase function to generate signed URL & create Firestore doc with metadata
+  const response = await generateUploadUrlFn({
+    fileExtension: file.name.split(".").pop() || "mp4",
+    ...metadata,
+  });
 
-    // TypeScript now understands that response.data has the correct shape
-    const uploadUrl = (response.data as GenerateUploadUrlResponse).url;
+  const { url } = response.data;
 
-    // Upload the file via the signed URL
-    const uploadResult = await fetch(uploadUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-            'Content-Type': file.type
-        }
-    });
-
-    return uploadResult;
+    // Upload the file to the signed URL
+  await fetch(url, {
+    method: "PUT",
+    body: file,
+    headers: {
+      "Content-Type": file.type,
+    },
+  });
 }
 
 

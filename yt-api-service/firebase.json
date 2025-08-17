@@ -1,7 +1,9 @@
 {
   "functions": [
     {
-      "source": "functions",
+      "functions": {
+        "runtime": "nodejs20"
+      },
       "codebase": "default",
       "ignore": [
         "node_modules",

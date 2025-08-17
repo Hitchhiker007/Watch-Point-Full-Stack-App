@@ -1,7 +1,7 @@
 /* global.css */
 
 :root {
-  --bg-light: linear-gradient(135deg, #800080, #4b0082); /* Purple to dark purple */
+  --bg-light: linear-gradient(135deg, #646064, #4b0082); /* Purple to dark purple */
   --bg-dark: linear-gradient(135deg, #1e1e1e, #121212); /* Dark background */
   --text-light: white;
   --text-dark: #cccccc; /* Lighter text for dark mode */
@@ -11,7 +11,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #800080, #4b0082); /* Purple to dark purple */
+  background: linear-gradient(135deg, #bab8ba, #dfdee1); /* Purple to dark purple */
   color: white; /* Optional: Set a text color that contrasts with the background */
   font-family: Arial, sans-serif; /* Optional: Set a default font */
   min-height: 100vh; /* Ensure it covers the full viewport height */
@@ -27,7 +27,8 @@ body.dark-mode {
 html, body, #__next {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow-y: auto; /* allows vertical scroll */
 }
 
 .darkModeButton {

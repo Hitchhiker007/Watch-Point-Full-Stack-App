@@ -21,7 +21,7 @@ export default async function Home() {
               className={styles.thumbnail} />
           </Link>
           {/* Video Title */}
-          <div className={styles.title}>{video.filename}</div> {/* Display video title */}
+          <div className={styles.title}>{video.title}</div> {/* Display video title */}
           </div>
         ))
       }

@@ -23,12 +23,13 @@ export interface Video {
     filename?: string,
     status?: 'processing' | 'processed',
     title?: string,
-    description?: string
+    description?: string,
+    genre?: string    
 }
 
 // call await as we need the data from thr snapshot to come first before reutring the data of the video
 
-async function getVideo(videoId: string) {
+export async function getVideo(videoId: string) {
     const snapshot = await firestore.collection(videoCollectionId).doc(videoId).get();
     // return an empty obejct instead of undefined
     return (snapshot.data() as Video) ?? {};

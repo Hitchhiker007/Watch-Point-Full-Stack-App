@@ -1,5 +1,6 @@
 import express, { Request, Response, RequestHandler } from 'express';
 import { isVideoNew, setVideo } from './firestore';
+import { getVideo } from './firestore';
 
 import {
     uploadProcessedVideo,
@@ -61,7 +62,10 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
         // Upload the processed video to Cloud Storage
         await uploadProcessedVideo(outputFileName);
 
+        const existingVideo = await getVideo(videoId);
+
         await setVideo(videoId, {
+             ...existingVideo,
             status: 'processed',
             filename: outputFileName
         })
