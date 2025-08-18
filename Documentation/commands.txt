@@ -1,0 +1,15 @@
+video-processing-service
+command to build and push on the same line
+
+docker buildx build --platform linux/amd64 \
+  -t australia-southeast2-docker.pkg.dev/yt-clone-dbda9/video-processing-repo/video-processing-service:latest \
+  --push .
+
+needs to be amd64
+
+firebase functions
+firebase deploy --only functions     
+dont be suprised by linting rules!
+
+yt-web-client
+npm run dev

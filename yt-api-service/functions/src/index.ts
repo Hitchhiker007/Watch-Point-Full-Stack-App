@@ -129,7 +129,7 @@ export const getVideos = onCall({ maxInstances: 1 }, async () => {
         // get a limit of 10 videos
         await firestore.collection(videoCollectionId)
         .where("status", "==", "processed")
-        .limit(10)
+        .limit(100)
         .get();
         // await firestore.collection(userCollectionId).limit(10).get;
     return querySnapshot.docs.map((doc) => doc.data());

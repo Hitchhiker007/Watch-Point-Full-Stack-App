@@ -7,12 +7,12 @@ initializeApp({ credential: credential.applicationDefault() });
 const firestore = new Firestore();
 
 // Note: This requires setting an env variable in Cloud Run
-/** if (process.env.NODE_ENV !== 'production') {
-  firestore.settings({
-      host: "localhost:8080", // Default port for Firestore emulator
-      ssl: false
-  });
-} */
+// if (process.env.NODE_ENV !== 'production') {
+//   firestore.settings({
+//       host: "localhost:8080", // Default port for Firestore emulator
+//       ssl: false
+//   });
+// } 
 
 
 const videoCollectionId = 'videos';
@@ -24,7 +24,8 @@ export interface Video {
     status?: 'processing' | 'processed',
     title?: string,
     description?: string,
-    genre?: string    
+    genre?: string,
+    thumbnails?: string[],
 }
 
 // call await as we need the data from thr snapshot to come first before reutring the data of the video

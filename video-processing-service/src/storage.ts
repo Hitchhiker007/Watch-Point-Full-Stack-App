@@ -1,23 +1,23 @@
 import { Storage } from "@google-cloud/storage";
 import fs from 'fs';
 import ffmpeg from 'fluent-ffmpeg';
-// import path from "path";
+import path from "path";
 
 const storage = new Storage();
 
 const rawVideoBucketName = "major-will-raw-videos";
 const processedVideoBucketName = "major-will-processed-videos";
-// const thumbnailBucketName = "major-will-thumbnails";
+const thumbnailBucketName = "major-will-thumbnails";
 
 const localRawVideoPath = "./raw-videos";
 const localProcessedVideoPath = "./processed-videos";
-// const localThumbnailPath = "./thumbnails";
+const localThumbnailPath = "./thumbnails";
 
 // Create local directories for raw and processed videos
 export function setupDirectories() {
     ensureDirectoryExistance(localRawVideoPath);
     ensureDirectoryExistance(localProcessedVideoPath);
-    // ensureDirectoryExistance(localThumbnailPath);
+    ensureDirectoryExistance(localThumbnailPath);
 }
 
 /**
@@ -30,6 +30,8 @@ export function convertVideo(rawVideoName: string, processedVideoName: string) {
     return new Promise<void>((resolve, reject) => {
         ffmpeg(`${localRawVideoPath}/${rawVideoName}`)
             .outputOptions("-vf", "scale=-1:360")//360p
+            // works for shorts 9:16 ratio
+            // .outputOptions("-vf", "scale='if(gt(a,1),-1,360)':'if(gt(a,1),360,-1)'")
             .on("end", () => {
                 console.log("Processing finished successfully.");
                 resolve();
@@ -136,34 +138,38 @@ function ensureDirectoryExistance(dirPath: string) {
 
 // // ------------------ Thumbnails ------------------
 
-// export function generateThumbnail(videoName: string, videoId: string, outputImage: string): Promise<string> {
-//   return new Promise((resolve, reject) => {
-//     ffmpeg(`${localRawVideoPath}/${videoName}`)
-//       .on("end", async () => {
-//         console.log(`Thumbnail created: ${localThumbnailPath}/${outputImage}`);
-//         resolve(`${localThumbnailPath}/${outputImage}`);
-//       })
-//       .on("error", (err) => {
-//         console.error("Error generating thumbnail:", err);
-//         reject(err);
-//       })
-//       .screenshots({
-//         timestamps: ["3"],
-//         filename: outputImage,
-//         folder: localThumbnailPath,
-//         size: "320x240"
-//       });
-//   });
-// }
+export function generateThumbnail(videoName: string, videoId: string, outputImage: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    ffmpeg(`${localRawVideoPath}/${videoName}`)
+      .on("end", async () => {
+        console.log(`Thumbnail created: ${localThumbnailPath}/${outputImage}`);
+        resolve(`${localThumbnailPath}/${outputImage}`);
+      })
+      .on("error", (err) => {
+        console.error("Error generating thumbnail:", err);
+        reject(err);
+      })
+      .screenshots({
+        timestamps: ["3"],
+        filename: outputImage,
+        folder: localThumbnailPath,
+        size: "320x240"
+      });
+  });
+}
 
-// export async function uploadThumbnail(localPath: string, videoId: string, thumbFile: string) {
-//   const bucket = storage.bucket(thumbnailBucketName);
-//   const destination = `${videoId}/${thumbFile}`; // store under folder named by videoId
+export async function uploadThumbnail(localPath: string, videoId: string, thumbFile: string) {
+  const bucket = storage.bucket(thumbnailBucketName);
+    // store under folder named by videoId
+    const destination = `${videoId}/${thumbFile}`; 
 
-//   await bucket.upload(localPath, { destination });
-//   console.log(`Thumbnail uploaded to gs://${thumbnailBucketName}/${destination}`);
+    await bucket.upload(localPath, { destination });
+    console.log(`Thumbnail uploaded to gs://${thumbnailBucketName}/${destination}`);
 
-//   // make public
-//   await bucket.file(destination).makePublic();
-//   return `https://storage.googleapis.com/${thumbnailBucketName}/${destination}`;
-// }
+    // only make public when NOT in production
+    // if (process.env.NODE_ENV !== "production") {
+    //     await bucket.file(destination).makePublic();
+    // }
+
+    return `https://storage.googleapis.com/${thumbnailBucketName}/${destination}`;
+}

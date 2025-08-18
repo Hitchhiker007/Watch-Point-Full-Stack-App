@@ -22,7 +22,8 @@ export interface Video {
     status?: 'processing' | 'processed',
     title?: string,
     description?: string,
-    genre?: string
+    genre?: string,
+    thumbnails?: string[];
 }
 
 export interface VideoMetadata {

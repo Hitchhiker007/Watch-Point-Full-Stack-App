@@ -1,1 +1,8 @@
 node_modules
+raw-videos
+processed-videos
+thumbnails
+
+src/local-test.ts
+src/local-server-test.ts
+src/thumbnailGeneration.ts

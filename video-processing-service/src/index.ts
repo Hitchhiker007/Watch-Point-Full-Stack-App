@@ -1,6 +1,7 @@
 import express, { Request, Response, RequestHandler } from 'express';
 import { isVideoNew, setVideo } from './firestore';
 import { getVideo } from './firestore';
+import fs from 'fs';
 
 import {
     uploadProcessedVideo,
@@ -9,8 +10,8 @@ import {
     deleteProcessedVideo,
     convertVideo,
     setupDirectories,
-    // generateThumbnail,
-    // uploadThumbnail
+    generateThumbnail,
+    uploadThumbnail
 } from './storage';
 
 // Create the local directories for videos
@@ -67,9 +68,9 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
         const existingVideo = await getVideo(videoId);
 
         // ---------------- Thumbnail generation ----------------
-        // const thumbFile = `thumb-${videoId}.jpg`;
-        // const localThumbPath = await generateThumbnail(inputFileName, videoId, thumbFile);
-        // const publicThumbUrl = await uploadThumbnail(localThumbPath, videoId, thumbFile);
+        const thumbFile = `thumb-${videoId}.jpg`;
+        const localThumbPath = await generateThumbnail(inputFileName, videoId, thumbFile);
+        const publicThumbUrl = await uploadThumbnail(localThumbPath, videoId, thumbFile);
 
         // Save Video
         // Thumbanil in firestore also
@@ -77,15 +78,15 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
         await setVideo(videoId, {
              ...existingVideo,
             status: 'processed',
-            filename: outputFileName
-            // thumbnails: [publicThumbUrl] // thumbnails
+            filename: outputFileName,
+            thumbnails: [publicThumbUrl] // thumbnails
         })
 
         // Cleanup local files
         await Promise.all([
             deleteRawVideo(inputFileName),
             deleteProcessedVideo(outputFileName),
-            // fs.promises.unlink(localThumbPath) // also delete local thumbnail
+            fs.promises.unlink(localThumbPath) // also delete local thumbnail
         ]);
 
         res.status(200).send('Processing finished successfully');
