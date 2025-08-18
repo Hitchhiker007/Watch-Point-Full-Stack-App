@@ -8,7 +8,9 @@ import {
     deleteRawVideo,
     deleteProcessedVideo,
     convertVideo,
-    setupDirectories
+    setupDirectories,
+    // generateThumbnail,
+    // uploadThumbnail
 } from './storage';
 
 // Create the local directories for videos
@@ -18,7 +20,7 @@ setupDirectories();
 const processVideoHandler: RequestHandler = async (req: Request, res: Response): Promise<void> => {
     let data;
     try {
-        // Parse the Pub/Sub message
+        // parse the Pub/Sub message
         const message = Buffer.from(req.body.message.data, 'base64').toString('utf8');
         data = JSON.parse(message);
 
@@ -64,16 +66,26 @@ const processVideoHandler: RequestHandler = async (req: Request, res: Response):
 
         const existingVideo = await getVideo(videoId);
 
+        // ---------------- Thumbnail generation ----------------
+        // const thumbFile = `thumb-${videoId}.jpg`;
+        // const localThumbPath = await generateThumbnail(inputFileName, videoId, thumbFile);
+        // const publicThumbUrl = await uploadThumbnail(localThumbPath, videoId, thumbFile);
+
+        // Save Video
+        // Thumbanil in firestore also
+
         await setVideo(videoId, {
              ...existingVideo,
             status: 'processed',
             filename: outputFileName
+            // thumbnails: [publicThumbUrl] // thumbnails
         })
 
         // Cleanup local files
         await Promise.all([
             deleteRawVideo(inputFileName),
             deleteProcessedVideo(outputFileName),
+            // fs.promises.unlink(localThumbPath) // also delete local thumbnail
         ]);
 
         res.status(200).send('Processing finished successfully');
