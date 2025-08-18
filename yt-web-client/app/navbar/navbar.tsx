@@ -55,9 +55,9 @@ export default function Navbar() {
         <nav className={styles.nav}>
             <div className={styles.navLeft}>
             <Link href="/">
-                <Image width={90} height={20}
+                <Image width={90} height={40}
                     className={styles.logo}
-                    src="/youtube-logo.svg" alt="youtube-logo"></Image>
+                    src="/logo.svg" alt="ogo"></Image>
             </Link>
 
 
