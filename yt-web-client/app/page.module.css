@@ -5,3 +5,10 @@
 .title {
   color: white;
 }
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 3 columns */
+  gap: 1rem; /* space between cards */
+  padding: 1rem;
+}

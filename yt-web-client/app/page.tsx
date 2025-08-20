@@ -11,7 +11,7 @@ export default async function Home() {
   const videos = await getVideos();
 
   return (
-    <main>
+    <main className={styles.mainGrid}>
     {videos.map(v => <VideoCard key={v.id || v.filename} video={v} />)}
     </main>
   );
