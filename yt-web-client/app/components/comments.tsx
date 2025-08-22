@@ -37,21 +37,51 @@ export default function Comments({ videoId}: {videoId:string}) {
     }
 
     return (
-        <div>
-            <h3>Comments</h3>
-            <div>
+        <div className="comments-container">
+            <h3 className="comments-header">{comments.length} Comments</h3>
+
+            <div className="add-comment">
+                <img
+                    src={auth.currentUser?.photoURL || "default-avatar.png"}
+                    alt="avatar"
+                />
+                <div className="flex-1">
                 <textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write a comment..."
+                    rows={2}
                     />
-                    <button onClick={handleAddComment}>Post</button>
+                    <div className="comment-button-container">
+                    <button onClick={handleAddComment} className="comment-button">
+                        Comment
+                        </button>
+                    </div>
+                    </div>
             </div>
 
-            <ul>
+
+            <ul className="comments-list">
                 {comments.map((c) => (
-                    <li key={c.id}>
-                        <strong>{c.uid}</strong>: {c.text}
+                    <li key={c.id} className="comment-item">
+                        <img src="/default-avatr.png" alt="avatar" />
+                            <div className="flex-1">
+                                <div className="comment-header">
+                                    <span className="comment-username">{c.uid}</span>
+                                    {c.createdAt && (
+                                        <span className="comment-time">
+                                            {new Date(c.createdAt).toLocaleString()}
+                                        </span>
+                                    )}
+                                </div>
+                                <p className="comment-text">{c.text}</p>
+                                {/* <div className="comment-actions">
+                                    <button> Like </button>
+                                    <button> Dislike </button>
+                                    <button>Reply</button>
+                                </div> */}
+                            </div>
+            
                     </li>
                 ))}
             </ul>

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Youtube",
-  description: "Youtube Clone Made By Yours Truly Willzo",
+  title: "Watch Point",
+  description: "Watch Point Made By Yours Truly Willzo",
 };
 
 export default function RootLayout({
