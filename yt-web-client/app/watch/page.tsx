@@ -10,6 +10,7 @@ import { app } from "../firebase/firebase"; // your initialized Firebase app
 import { getVideos } from "../firebase/functions";
 import VideoUploader from "./uploader";
 import SidebarRecommended from "./sideBarRecommended";
+import Comments from "../components/comments";
 
 export interface Video {
   id?: string;               
@@ -36,6 +37,8 @@ const VideoPlayer = () => {
     const [videoDescription, setVideoDescription] = useState('');
     const [videoGenre, setVideoGenre] = useState('');
     const [userId, setUserId] = useState('');
+
+    const processedCleanFilename = videoParam ? videoParam.replace(/^processed-/, '').replace(/\.mp4$/, '') : '';
      
   useEffect(() => {
     if (!videoParam) return;
@@ -82,39 +85,42 @@ const VideoPlayer = () => {
     }
   
 
-    return (
-  <div className={styles.watchPage}>
-    {/* LEFT: Video + Info */}
-    <div className={styles.mainContent}>
-      <div className={styles.videoPlayer}>
-        <video controls width="100%" height="auto">
-          <source src={videoPrefix + videoSource} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+  return (
+    <div className={styles.watchPage}>
+      {/* LEFT: Video + Info */}
+      <div className={styles.mainContent}>
+        <div className={styles.videoPlayer}>
+          <video controls width="100%" height="auto">
+            <source src={videoPrefix + videoSource} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <h1 className={styles.videoTitle}>{videoTitle}</h1>
+
+        {/* Channel Info */}
+        <div className={styles.channelInfo}>
+          <VideoUploader uploaderUid={userId} />
+        </div>
+
+        {/* Description */}
+        <div className={styles.videoMeta}>
+          <p>{videoDescription}</p>
+          <p className={styles.genre}>Genre: {videoGenre}</p>
+        </div>
+
+        {/* Comments Section */}
+        <Comments videoId={processedCleanFilename} />
       </div>
 
-      <h1 className={styles.videoTitle}>{videoTitle}</h1>
-
-      {/* Channel Info */}
-      <div className={styles.channelInfo}>
-        <VideoUploader uploaderUid={userId} />
-      </div>
-
-      {/* Description */}
-      <div className={styles.videoMeta}>
-        <p>{videoDescription}</p>
-        <p className={styles.genre}>Genre: {videoGenre}</p>
-      </div>
+      {/* RIGHT: Recommended Videos placeholder */}
+      <aside className={styles.sidebar}>
+        <h3>Recommended</h3>
+        <div className={styles.recommended}>
+          <SidebarRecommended />
+        </div>
+      </aside>
     </div>
-
-    {/* RIGHT: Recommended Videos placeholder */}
-    <aside className={styles.sidebar}>
-      <h3>Recommended</h3>
-      <div className={styles.recommended}>
-        <SidebarRecommended />
-      </div>
-    </aside>
-  </div>
 );
 };
 
@@ -129,3 +135,4 @@ export default function Watch() {
         </div>
     );
 }
+

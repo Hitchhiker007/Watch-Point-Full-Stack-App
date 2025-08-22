@@ -1,5 +1,6 @@
 import { httpsCallable } from 'firebase/functions';
 import { functions } from './firebase';
+import { getAuth } from "firebase/auth";
 
 const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
 
@@ -8,6 +9,16 @@ const getVideosFunction = httpsCallable(functions, 'getVideos');
 const getUserPhotoFunction = httpsCallable(functions, 'getUserPhotoUrl');
 
 const getUserEmailFunction = httpsCallable(functions, 'getUserEmail');
+
+const addCommentFunction = httpsCallable<{videoId: string; text: string}, {id: string; text: string; uid:string}> (
+  functions,
+  "addComment"
+);
+
+const getCommentFunction = httpsCallable<{ videoId: string}, any[]>(
+  functions,
+  "getComments"
+);
 
 // Callable functions
 const generateUploadUrlFn = httpsCallable<
@@ -95,6 +106,19 @@ export async function getUserEmail(): Promise<string> {
 
     return data?.email || "";
 }
+
+
+export async function addComment(videoId: string, text: string){
+  const response = await addCommentFunction({ videoId, text});
+  return response.data;
+}
+
+export async function getComments(videoId: string) {
+  const response = await getCommentFunction({ videoId});
+  return response.data;
+}
+
+
 
 
 

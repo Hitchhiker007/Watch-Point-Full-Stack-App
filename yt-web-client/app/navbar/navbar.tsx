@@ -7,7 +7,7 @@ import SignIn from "./sign-in";
 import { onAuthStateChangedHelper } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
-import Upload from './upload';
+// import Upload from './upload';
 import { getPhotoUrl } from "../firebase/functions";
 
 
@@ -34,7 +34,7 @@ export default function Navbar() {
                     .catch((error) => { console.log(error)
                     });
                 } else {
-                    console.log("phot url is NULL");
+                    console.log("photo url is NULL");
                     setPhotoURL(null);
                 }
             });
@@ -48,7 +48,7 @@ export default function Navbar() {
         };
 
         // Fallback/default image for signed-out users
-        const defaultImage = '/TheThing.png'; // Update this with your default image path
+        const defaultImage = '/default_user.png'; // Update this with your default image path
     
 
     return (

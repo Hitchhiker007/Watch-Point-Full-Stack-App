@@ -46,3 +46,4 @@ export function signOut() {
 export function onAuthStateChangedHelper(callback: (user: User | null) => void) {
     return onAuthStateChanged(auth, callback);
 }
+

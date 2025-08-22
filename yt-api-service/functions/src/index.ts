@@ -206,3 +206,53 @@ export const getUploaderInfo = onCall({ maxInstances: 1 }, async (request) => {
     photoURL: data?.photoUrl || "",
   };
 });
+
+// ADD Comments to a video --------------------------------------->
+export const addComment = onCall(async (request) => {
+  if (!request.auth) {
+    throw new functions.https.
+    HttpsError("failed-precondition", "You must be signed in to comment.");
+  }
+
+  const { videoId, text} = request.data as {videoId: string; text: string};
+
+  if ( !videoId || !text || text.trim() === "" ) {
+    throw new
+    functions.https.HttpsError("invalid-argument", "videoId, text, required");
+  }
+
+  // create a subcollection "comments" under the video
+  const commentsRef = firestore.collection("videos")
+  .doc(videoId).collection("comments");
+  const docRef = await commentsRef.add({
+    uid: request.auth.uid,
+    text: text.trim(),
+    createdAt: new Date(),
+  });
+
+  return { id: docRef.id, text: text.trim(), uid: request.auth.uid};
+});
+
+// GET Comments for a video ----------------------------------------->
+export const getComments = onCall(async (request) => {
+  const { videoId } = request.data as { videoId: string };
+
+  if (!videoId) {
+    throw new
+    functions.https.HttpsError("invalid-argument", "videoId is required.");
+  }
+
+  const commentsRef =
+  firestore.collection("videos").doc(videoId).collection("comments");
+  const snapshot =
+  await commentsRef.orderBy("createdAt", "desc").limit(50).get();
+
+  const comments = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  return comments;
+});
+
+
