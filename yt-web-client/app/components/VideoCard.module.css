@@ -3,8 +3,8 @@
 .videoCard {
   display: flex;
   flex-direction: column;
-  width: 140px; /* slightly larger to fit thumbnail and title */
-  margin: 10px;
+  width: 140px;
+  margin: 5px;
   text-decoration: none;
   color: white;
   cursor: pointer;
@@ -21,7 +21,7 @@
   height: 80px;
   object-fit: cover;
   border-radius: 4px;
-  background-color: #222; /* placeholder color */
+  background-color: #222;
 }
 
 .meta {
@@ -42,5 +42,5 @@
 
 .genre {
   font-size: 0.75rem;
-  color: #aaa;
+  color: #202020;
 }

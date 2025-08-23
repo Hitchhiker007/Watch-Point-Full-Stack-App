@@ -35,7 +35,7 @@ export default function VideoUploader({ uploaderUid }: VideoUploaderProps) {
     });
 }, [uploaderUid]);
 
-  const defaultImage = "/TheThing.png";
+  const defaultImage = "/default_user.png";
   const defaultEmail = "Unknown uploader";
 
   return (

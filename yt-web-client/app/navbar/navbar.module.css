@@ -11,7 +11,7 @@
 .navLeft {
   display: flex;
   align-items: center;
-  gap: 20px; /* spacing between logo and links */
+  gap: 20px;
 }
 
 .logoLink {
@@ -28,7 +28,7 @@
 .navLinks {
   list-style: none;
   display: flex;
-  gap: 20px; /* Add space between links */
+  gap: 20px;
   margin: 0;
   padding: 0;
 }
@@ -41,12 +41,12 @@
 
 .navLinks li a {
   text-decoration: none;
-  color: #fff; /* White text for links */
+  color: #fff;
   transition: color 0.3s ease;
 }
 
 .navLinks li a:hover {
-  color: #065fd4; /* Light blue on hover */
+  color: #065fd4;
 }
 
 .darkModeButton {

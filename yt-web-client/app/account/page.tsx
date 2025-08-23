@@ -42,23 +42,26 @@ export default function Account(){
             return () => unsubscribe();
     })
 
-    const defaultImage = '/TheThing.png';
+    const defaultImage = '/default_user.png';
     const defaultEmail = '';
 
     // setUser(user);
 
     return (
-        <div className={styles.userProfile}>
-                    <Image
-                        src={user ? (photoURL || defaultImage) : defaultImage}
-                        alt="User Profile"
-                        width={200}
-                        height={200}
-                        className={styles.profileImage}
-                    />
-                    <h2>{user ? (email || defaultEmail) : defaultEmail}</h2>
-
-                </div>
-    )
+        <div className={styles.accountPage}>
+            <div className={styles.userProfile}>
+            <Image
+                src={user ? (photoURL || defaultImage) : defaultImage}
+                alt="User Profile"
+                width={120}
+                height={120}
+                className={styles.profileImage}
+            />
+            <h2 className={styles.userEmail}>
+                {user ? (email || defaultEmail) : defaultEmail}
+            </h2>
+            </div>
+        </div>
+    );
 
 };

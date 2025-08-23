@@ -33,6 +33,8 @@
   gap: 12px;
   padding: 8px 0;
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(135deg, #9a989a, #bdbcc0);
+  border-radius: 8px; 
 }
 
 .profileImage {
@@ -49,7 +51,7 @@
 
 .genre {
   font-style: italic;
-  color: #bbb;
+  color: #202020;
 }
 
 /* Sidebar (recommended videos) */
@@ -58,8 +60,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-left: 1px solid rgba(255,255,255,0.1);
+  /* border-left: 1px solid rgba(255,255,255,0.1); */
   padding-left: 16px;
+  background: linear-gradient(135deg, #9a989a, #bdbcc0);
+  border-radius: 8px; 
 }
 
 .recommended {
