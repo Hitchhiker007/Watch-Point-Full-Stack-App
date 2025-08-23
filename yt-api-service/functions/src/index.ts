@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions/v1";
 import { initializeApp } from "firebase-admin/app";
-import { Firestore } from "firebase-admin/firestore";
+import { Firestore, FieldValue } from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
 import { Storage } from "@google-cloud/storage";
 import { onCall } from "firebase-functions/v2/https";
@@ -221,16 +221,30 @@ export const addComment = onCall(async (request) => {
     functions.https.HttpsError("invalid-argument", "videoId, text, required");
   }
 
+  // Fetch the user's photoURL from the users collection
+  const userRef = firestore.collection("users").doc(request.auth.uid);
+  const userDoc = await userRef.get();
+  const photoURL = userDoc.exists ? userDoc.data()?.photoURL || "" : "";
+
   // create a subcollection "comments" under the video
   const commentsRef = firestore.collection("videos")
   .doc(videoId).collection("comments");
   const docRef = await commentsRef.add({
     uid: request.auth.uid,
     text: text.trim(),
-    createdAt: new Date(),
+    photoURL, // store the photoURL along with the comment
+    email: request.auth.token.email || "", // store email
+    createdAt: FieldValue.serverTimestamp(), // set server timestamp
   });
 
-  return { id: docRef.id, text: text.trim(), uid: request.auth.uid};
+  // return relevant fields so the frontend has them
+  return {
+    id: docRef.id,
+    uid: request.auth.uid,
+    text: text.trim(),
+    photoURL,
+    email: request.auth.token.email || "",
+  };
 });
 
 // GET Comments for a video ----------------------------------------->
@@ -247,10 +261,18 @@ export const getComments = onCall(async (request) => {
   const snapshot =
   await commentsRef.orderBy("createdAt", "desc").limit(50).get();
 
-  const comments = snapshot.docs.map((doc) => ({
+  const comments = snapshot.docs.map((doc) => {
+  const docData = doc.data();
+  return {
     id: doc.id,
-    ...doc.data(),
-  }));
+    uid: docData.uid,
+    text: docData.text,
+    photoURL: docData.photoURL || "",
+    email: docData.email || "",
+     // convert Firestore Timestamp to number
+    createdAt: docData.createdAt ? docData.createdAt.toMillis() : undefined,
+  };
+});
 
   return comments;
 });
