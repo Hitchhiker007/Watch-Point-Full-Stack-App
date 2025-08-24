@@ -129,7 +129,7 @@ WatchPoint/
 
 ## ⚠️ Disclaimer
 
-This project was created for educational purposes.
+This project is a personal project created for learning purposes.
 Youtube's original branding and content belong to their respective owners.
 All videos and content belong to their respective owners. 
 I am not affiliated with Youtube — this is a non-commercial project for learning.
