@@ -79,10 +79,10 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 - **TypeScript** – Component logic, type safety, and dynamic functionality
 - **JSON** – Data handling and API communication
 - **Next.js** – Frontend framework for server-side rendering and client-side routing
-- **Firebase** –
-        - Authentication - Google Sign-In for user accounts
-        - Firestore - Cloud-hosted NoSQL database for storing videos, metadata, comments, and user data
-        - Cloud Functions - Serverless backend logic (HTTP & callable functions)
+- **Firebase**:
+  - **Authentication** – Google Sign-In for user accounts
+  - **Firestore** – Cloud-hosted NoSQL database for storing videos, metadata, comments, and user data
+  - **Cloud Functions** – Serverless backend logic (HTTP & callable functions)
 - **Google Cloud Storage** – Buckets for raw videos, processed videos, and thumbnails
 - **Google Cloud Pub/Sub** – Event-driven video processing workflow for processing and generating thumbnails asynchronously
 - **FFmpeg** – Video and thumbnail processing utility for encoding, resizing, and generating preview images
