@@ -35,34 +35,33 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ### 🏠 Home Page
 
-| HomePage |
-| -------- |
-
-<img src="./documentation/pages/watch.png" alt="Watch Page" width="600"/>
+| HomePage                |
+| ----------------------- |
+| ![Home](./homepage.png) |
 
 ---
 
 ### 🔎 Search Results
 
-| Search                                 |
-| -------------------------------------- |
-| ![Search](./documentation/postman.png) |
+| Search      |
+| ----------- |
+| ![Search]() |
 
 ---
 
 ### 👤 Account Page
 
-| Account Page             |
-| ------------------------ |
-| ![Product Before](photo) |
+| Account Page        |
+| ------------------- |
+| ![Product Before]() |
 
 ---
 
 ### 📺 Watch Page
 
-| Watch Page           |
-| -------------------- |
-| ![Watch Page](photo) |
+| Watch Page      |
+| --------------- |
+| ![Watch Page]() |
 
 ---
 
