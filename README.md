@@ -43,9 +43,9 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ### 🔎 Search Results
 
-| Search           |
-| ---------------- |
-| ![Search](photo) |
+| Search                                 |
+| -------------------------------------- |
+| ![Search](./documentation/postman.png) |
 
 ---
 
