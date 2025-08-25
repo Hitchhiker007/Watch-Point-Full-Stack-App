@@ -20,12 +20,11 @@ This project is a full stack app utilising Google Cloud Services. Users are allo
 
 ## ✨ Features
 
-- Modern, mobile-friendly UI
-- Modular, reusable HTML components (`header`, `footer`, `product grid`)
-- Search functionality with live filtering
-- Shopping cart with persistent state (localStorage)
-- Clean, responsive layout built from scratch
-- Fully working purchase flow (from search to confirmation)
+- Modern, mobile-friendly UI for video browsing and playback
+- Video upload flow with metadata (title, description, genre) and thumbnail generation
+- Fully working video processing pipeline (raw upload → Pub/Sub → Cloud Run → processed video + thumbnail → Buckets & Firestore)
+- Persistent user state and authentication via Firebase (Google Sign-In)
+- Comment system with real-time updates
 
 ---
 
@@ -76,10 +75,18 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 ## 🛠 Tech Stack
 
 - **HTML5** – Semantic structure
-- **CSS3** – Responsive layout with reusable modules
-- **Typscript ** – Component loading, search, general logic
-- **JSON** – Data handling
-- **Google Cloud Run** – Hosting (live deployment)
+- **CSS3** – Responsive layouts with reusable, modular styles
+- **TypeScript** – Component logic, type safety, and dynamic functionality
+- **JSON** – Data handling and API communication
+- **Next.js** – Frontend framework for server-side rendering and client-side routing
+- **Firebase** –
+        - Authentication - Google Sign-In for user accounts
+        - Firestore - Cloud-hosted NoSQL database for storing videos, metadata, comments, and user data
+        - Cloud Functions - Serverless backend logic (HTTP & callable functions)
+- **Google Cloud Storage** – Buckets for raw videos, processed videos, and thumbnails
+- **Google Cloud Pub/Sub** – Event-driven video processing workflow for processing and generating thumbnails asynchronously
+- **FFmpeg** – Video and thumbnail processing utility for encoding, resizing, and generating preview images
+- **Google Cloud Run** – Serverless hosting and deployment for the video-processing microservice
 
 ---
 
