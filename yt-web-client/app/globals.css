@@ -29,6 +29,7 @@ html, body, #__next {
   width: 100%;
   /* overflow: hidden; */
   overflow-y: auto; /* allows vertical scroll */
+  font-family: var(--font-roboto), sans-serif;
 }
 
 .darkModeButton {

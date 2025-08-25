@@ -3,12 +3,13 @@
 .videoCard {
   display: flex;
   flex-direction: column;
-  width: 140px;
+  width: 200px; /* 140px × 1.25 = 175px */
   margin: 5px;
   text-decoration: none;
   color: white;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 8px;
 }
 
 .videoCard:hover {
@@ -18,8 +19,10 @@
 
 .thumbnail {
   width: 100%;
-  height: 80px;
+  height: auto;
+  aspect-ratio: 16/9; /* keeps standard YouTube thumbnail ratio */
   object-fit: cover;
+  /* object-fit: contain; fits the entire image */
   border-radius: 4px;
   background-color: #222;
 }
@@ -27,8 +30,9 @@
 .meta {
   margin-top: 6px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* horizontal layout */
   gap: 2px;
+  padding-bottom: 8px;
 }
 
 .title {
@@ -38,9 +42,18 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #202020;
+  padding: 0 6px;
 }
 
 .genre {
   font-size: 0.75rem;
-  color: #202020;
+  font-family: var(--font-roboto), sans-serif;
+  color: #f9f9f9;
+  padding: 0 6px;
+}
+
+.uploaderImage {
+  border-radius: 50%; /* circle */
+  padding: 0 6px;
 }
