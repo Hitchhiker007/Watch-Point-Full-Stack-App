@@ -90,7 +90,7 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ---
 
-## 📁 Project Structure Simplified
+## 📁 Project Structure
 
 ```
 WatchPoint/
