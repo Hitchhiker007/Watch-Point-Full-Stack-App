@@ -1,7 +1,6 @@
 # 📺 Watch Point – A Full Stack App / Youtube Clone
 
-This project is a full stack app utilising Google Cloud Services. Users are allowed to sign up, upload videos, delete videos, comment and view other users videos. 
-
+This project is a full stack app utilising Google Cloud Services. Users are allowed to sign up, upload videos, delete videos, comment and view other users videos.
 
 🔗 [Live Prototype Website (Figma)](todo)  
 🔗 [Live Site](todo)
@@ -16,7 +15,7 @@ This project is a full stack app utilising Google Cloud Services. Users are allo
 - [Project Structure](#-project-structure)
 - [Disclaimer](#-disclaimer)
 - [Credits](#-credits)
-  
+
 ---
 
 ## ✨ Features
@@ -36,50 +35,50 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ### 🏠 Home Page
 
-| HomePage |
-|--------|-------|
-| ![Home](photo)|
+| HomePage                                    |
+| ------------------------------------------- |
+| ![Home](./documentation/pages/homepage.png) |
 
 ---
 
 ### 🔎 Search Results
 
-| Search |
-|--------|-------|
+| Search           |
+| ---------------- |
 | ![Search](photo) |
 
 ---
 
 ### 👤 Account Page
 
-|  Account Page |
-|--------|-------|
+| Account Page             |
+| ------------------------ |
 | ![Product Before](photo) |
 
 ---
 
-### 🛍 Watch Page
+### 📺 Watch Page
 
-| Watch Page|
-|--------|-------|
+| Watch Page           |
+| -------------------- |
 | ![Watch Page](photo) |
 
 ---
 
-### 🛒 Comments Section
+### 💬 Comments Section
 
-| Comments Section |
-|--------|-------|
+| Comments Section           |
+| -------------------------- |
 | ![Comments Section](photo) |
 
 ---
 
 ## 🛠 Tech Stack
 
-- **HTML5** – Semantic structure  
-- **CSS3** – Responsive layout with reusable modules  
-- **Typscript ** – Component loading, search, general logic  
-- **JSON** – Data handling  
+- **HTML5** – Semantic structure
+- **CSS3** – Responsive layout with reusable modules
+- **Typscript ** – Component loading, search, general logic
+- **JSON** – Data handling
 - **Google Cloud Run** – Hosting (live deployment)
 
 ---
@@ -131,11 +130,11 @@ WatchPoint/
 
 This project is a personal project created for learning purposes.
 Youtube's original branding and content belong to their respective owners.
-All videos and content belong to their respective owners. 
+All videos and content belong to their respective owners.
 I am not affiliated with Youtube — this is a non-commercial project for learning.
 
 ---
 
 ## 🌟 Credits
 
-- **Design & Development:** William Wells 
+- **Design & Development:** William Wells
