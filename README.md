@@ -41,35 +41,35 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ---
 
-### 🔎 Search Results
-
-| Search      |
-| ----------- |
-| ![Search]() |
-
----
-
 ### 👤 Account Page
 
-| Account Page        |
-| ------------------- |
-| ![Product Before]() |
+| Account Page                   |
+| ------------------------------ |
+| ![Account Page](./account.png) |
 
 ---
 
 ### 📺 Watch Page
 
-| Watch Page      |
-| --------------- |
-| ![Watch Page]() |
+| Watch Page                     |
+| ------------------------------ |
+| ![Watch Page](./watchpage.png) |
 
 ---
 
 ### 💬 Comments Section
 
-| Comments Section           |
-| -------------------------- |
-| ![Comments Section](photo) |
+| Comments Section                    |
+| ----------------------------------- |
+| ![Comments Section](./comments.png) |
+
+---
+
+### ⬆️ Upload Page
+
+| Upload Page                  |
+| ---------------------------- |
+| ![Upload Page](./upload.png) |
 
 ---
 
