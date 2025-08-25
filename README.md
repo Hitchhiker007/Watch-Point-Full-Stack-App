@@ -35,9 +35,9 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ### 🏠 Home Page
 
-| HomePage                |
-| ----------------------- |
-| ![Home](./homepage.png) |
+| HomePage                                    |
+| ------------------------------------------- |
+| ![Home](./documentation/pages/homepage.png) |
 
 ---
 
