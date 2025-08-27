@@ -2,8 +2,7 @@
 
 This project is a full stack app utilising Google Cloud Services. Users are allowed to sign up, upload videos, delete videos, comment and view other users videos.
 
-🔗 [Live Prototype Website (Figma)](todo)  
-🔗 [Live Site](todo)
+🔗 [Live Site](https://yt-web-client-900418942079.australia-southeast2.run.app/)
 
 ---
 
