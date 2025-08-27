@@ -63,6 +63,7 @@ export default function Account(){
                 width={120}
                 height={120}
                 className={styles.profileImage}
+                unoptimized
             />
             <h2 className={styles.userEmail}>
                 {user ? (email || defaultEmail) : defaultEmail}

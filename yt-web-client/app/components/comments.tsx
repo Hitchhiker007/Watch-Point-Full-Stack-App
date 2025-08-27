@@ -65,6 +65,7 @@ export default function Comments({ videoId }: { videoId: string }) {
             width={40}
             height={40}
             className="comment-avatar"
+            unoptimized
             />
         </div>
         <div className="flex-1">
@@ -93,6 +94,7 @@ export default function Comments({ videoId }: { videoId: string }) {
                 width={40}      // specify width
                 height={40}     // specify height
                 className="comment-avatar"
+                unoptimized
                 />
             <div className="flex-1">
               <div className="comment-header">

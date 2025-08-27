@@ -73,6 +73,7 @@ export default function VideoCard({ video }: VideoCardProps) {
         width={175}
         height={100}
         className={styles.thumbnail}
+        unoptimized
       />
       <div className={styles.meta}>
         <Image
@@ -81,6 +82,7 @@ export default function VideoCard({ video }: VideoCardProps) {
           className={styles.uploaderImage}
           width={32}
           height={32}
+          unoptimized
         />
         <div className={styles.text}>
           <div className={styles.title}>{meta.title || video.title || "Untitled"}</div>

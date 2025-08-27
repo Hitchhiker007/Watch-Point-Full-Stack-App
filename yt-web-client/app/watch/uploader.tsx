@@ -46,6 +46,7 @@ export default function VideoUploader({ uploaderUid }: VideoUploaderProps) {
         width={75}
         height={75}
         className={styles.profileImage}
+        unoptimized
       />
       <h2> Channel: {email || defaultEmail}</h2>
     </div>
