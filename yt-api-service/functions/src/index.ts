@@ -224,7 +224,7 @@ export const addComment = onCall(async (request) => {
   // Fetch the user's photoURL from the users collection
   const userRef = firestore.collection("users").doc(request.auth.uid);
   const userDoc = await userRef.get();
-  const photoURL = userDoc.exists ? userDoc.data()?.photoURL || "" : "";
+  const photoURL = userDoc.exists ? userDoc.data()?.photoUrl || "" : "";
 
   // create a subcollection "comments" under the video
   const commentsRef = firestore.collection("videos")

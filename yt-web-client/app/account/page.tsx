@@ -7,13 +7,14 @@ import styles from "./account.module.css";
 import Image from "@/node_modules/next/image";
 import { User } from "firebase/auth";
 import VideoCard from "../components/videoCard";
+import { Video } from "../firebase/functions";
 
 export default function Account(){
 
     const [user, setUser] = useState<User | null>(null);
     const [photoURL, setPhotoURL] = useState<string | null>(null); // State to store photo URL
     const [email, setUserEmail] = useState<string | null>(null);
-    const [videos, setVideos] = useState<any[]>([]);
+    const [videos, setVideos] = useState<Video[]>([]);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedHelper((user) => {

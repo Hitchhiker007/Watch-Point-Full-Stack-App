@@ -1,7 +1,7 @@
 import { getVideos } from "./firebase/functions";
 import styles from './page.module.css'
-import Image from 'next/image';
-import Link from 'next/link';
+// import Image from 'next/image';
+// import Link from 'next/link';
 import VideoCard from "./components/videoCard";
 
 export default async function Home() {

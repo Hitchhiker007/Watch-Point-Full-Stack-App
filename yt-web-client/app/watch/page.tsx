@@ -3,11 +3,11 @@
 import styles from "./watch.module.css";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState, useEffect } from 'react';
-import { functions } from "../firebase/firebase"; // your initialized functions
-import { httpsCallable } from "firebase/functions";
+// import { functions } from "../firebase/firebase"; // your initialized functions
+// import { httpsCallable } from "firebase/functions";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../firebase/firebase"; // your initialized Firebase app
-import { getVideos } from "../firebase/functions";
+// import { getVideos } from "../firebase/functions";
 import VideoUploader from "./uploader";
 import SidebarRecommended from "./sideBarRecommended";
 import Comments from "../components/comments";
@@ -125,12 +125,11 @@ const VideoPlayer = () => {
 };
 
 export default function Watch() {
-    const searchParams = useSearchParams();
-    const videoParam = searchParams.get('v');
+  
     return (
         <div className={styles.container}>
             <Suspense fallback={<div>Loading video...</div>}>
-               <VideoPlayer key={videoParam || 'empty'} />
+               <VideoPlayer />
             </Suspense>
         </div>
     );

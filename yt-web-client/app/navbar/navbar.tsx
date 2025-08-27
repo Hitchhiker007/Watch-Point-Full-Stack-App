@@ -19,7 +19,7 @@ export default function Navbar() {
     // javascript closure to research
     // state within a funciton is still mantained after a function has been executed
     const [user, setUser] = useState<User | null>(null);
-    const [darkMode, setDarkMode] = useState<boolean>(false);
+    // const [darkMode, setDarkMode] = useState<boolean>(false);
     const [photoURL, setPhotoURL] = useState<string | null>(null); // State to store photo URL
 
     useEffect(() => {
@@ -41,11 +41,11 @@ export default function Navbar() {
 
             // Cleanup subscription on unmount
             return () => unsubscribe();
-        }, [darkMode]); // Only re-run effect if darkMode changes
+        }); // Only re-run effect if darkMode changes
     
-        const toggleDarkMode = () => {
-            setDarkMode(!darkMode);
-        };
+        // const toggleDarkMode = () => {
+        //     setDarkMode(!darkMode);
+        // };
 
         // Fallback/default image for signed-out users
         const defaultImage = '/default_user.png'; // Update this with your default image path

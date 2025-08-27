@@ -3,19 +3,12 @@
 import { useEffect, useState } from "react";
 import { addComment, getComments } from "../firebase/functions";
 import { getAuth } from "firebase/auth";
+import { Comment as CommentType } from "../firebase/functions";
 import "./comments.css";
-
-interface Comment {
-  id: string;
-  uid: string;
-  text: string;
-  photoURL: string;
-  email: string;
-  createdAt?: number; // timestamp in milliseconds
-}
+import Image from "next/image";
 
 export default function Comments({ videoId }: { videoId: string }) {
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<CommentType[]>([]);
   const [newComment, setNewComment] = useState("");
   const auth = getAuth();
 
@@ -44,13 +37,13 @@ export default function Comments({ videoId }: { videoId: string }) {
     try {
       const added = await addComment(videoId, newComment);
       // ensire 'added' has all required properties for Comment
-      const completeAdded: Comment = {
+      const completeAdded: CommentType = {
         id: added.id,
         uid: added.uid,
         text: added.text,
-        photoURL: (added as Comment).photoURL || auth.currentUser?.photoURL || "/default_user.png",
-        email: (added as Comment).email || auth.currentUser?.email || "",
-        createdAt: (added as Comment).createdAt,
+        photoURL: (added as CommentType).photoURL || auth.currentUser?.photoURL || "/default_user.png",
+        email: (added as CommentType).email || auth.currentUser?.email || "",
+        createdAt: (added as CommentType).createdAt,
       };
       setComments((prev) => [completeAdded, ...prev]);
       setNewComment("");
@@ -66,10 +59,13 @@ export default function Comments({ videoId }: { videoId: string }) {
       {/* Add Comment */}
       <div className="add-comment">
         <div className="add-comment-image">
-          <img
+          <Image
             src={auth.currentUser?.photoURL || "/default_user.png"}
             alt="avatar"
-          />
+            width={40}
+            height={40}
+            className="comment-avatar"
+            />
         </div>
         <div className="flex-1">
           <input
@@ -91,11 +87,13 @@ export default function Comments({ videoId }: { videoId: string }) {
       <ul className="comments-list">
         {comments.map((c) => (
           <li key={c.id} className="comment-item">
-            <img
-             src={(c as any).photoURL || (c as any).photoUrl || "/default_user.png"}
-              alt="avatar"
-              className="comment-avatar"
-            />
+            <Image
+                src={c.photoURL || "/default_user.png"}
+                alt="avatar"
+                width={40}      // specify width
+                height={40}     // specify height
+                className="comment-avatar"
+                />
             <div className="flex-1">
               <div className="comment-header">
                 <span className="comment-username">{c.email || c.uid}</span>

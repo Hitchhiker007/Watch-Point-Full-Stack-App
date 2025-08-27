@@ -1,9 +1,9 @@
 import { httpsCallable } from 'firebase/functions';
 import { functions } from './firebase';
-import { getAuth } from "firebase/auth";
-import { https } from 'firebase-functions/v2';
+// import { getAuth } from "firebase/auth";
+// import { https } from 'firebase-functions/v2';
 
-const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
+// const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
 
 const getVideosFunction = httpsCallable(functions, 'getVideos');
 
@@ -18,7 +18,7 @@ const addCommentFunction = httpsCallable<{videoId: string; text: string}, {id: s
   "addComment"
 );
 
-const getCommentFunction = httpsCallable<{ videoId: string}, any[]>(
+const getCommentFunction = httpsCallable<{ videoId: string}, Comment[]>(
   functions,
   "getComments"
 );
@@ -40,6 +40,15 @@ export interface Video {
     thumbnails?: string[];
 }
 
+export interface Comment {
+  id: string;
+  uid: string;
+  text: string;
+  photoURL: string;
+  email: string;
+  createdAt?: number; // timestamp in milliseconds
+}
+
 export interface VideoMetadata {
   title: string;
   description: string;
@@ -56,9 +65,9 @@ export interface UserEmailResponse {
 
 
 // Define the expected structure of the response from generateUploadUrl
-interface GenerateUploadUrlResponse {
-    url: string; // The URL will be directly on the response, not inside a 'data' object
-}
+// interface GenerateUploadUrlResponse {
+//     url: string; // The URL will be directly on the response, not inside a 'data' object
+// }
 
 // Function to upload a video using the signed URL
 export async function uploadVideo(file: File, metadata: VideoMetadata) {
