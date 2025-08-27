@@ -1,10 +1,13 @@
 import { httpsCallable } from 'firebase/functions';
 import { functions } from './firebase';
 import { getAuth } from "firebase/auth";
+import { https } from 'firebase-functions/v2';
 
 const generateUploadUrl = httpsCallable(functions, 'generateUploadUrl');
 
 const getVideosFunction = httpsCallable(functions, 'getVideos');
+
+const getUserVideosFunction = httpsCallable(functions, 'getUserVideos');
 
 const getUserPhotoFunction = httpsCallable(functions, 'getUserPhotoUrl');
 
@@ -116,6 +119,11 @@ export async function addComment(videoId: string, text: string){
 export async function getComments(videoId: string) {
   const response = await getCommentFunction({ videoId});
   return response.data;
+}
+
+export async function getUserVideos() {
+  const response = await getUserVideosFunction();
+  return response.data as Video[];
 }
 
 

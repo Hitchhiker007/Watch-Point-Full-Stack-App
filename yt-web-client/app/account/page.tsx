@@ -1,17 +1,19 @@
 "use client";
 
-import { getPhotoUrl, getUserEmail } from "../firebase/functions";
+import { getPhotoUrl, getUserEmail, getUserVideos } from "../firebase/functions";
 import { useEffect, useState } from "react";
 import { onAuthStateChangedHelper } from "../firebase/firebase";
 import styles from "./account.module.css";
 import Image from "@/node_modules/next/image";
 import { User } from "firebase/auth";
+import VideoCard from "../components/videoCard";
 
 export default function Account(){
 
     const [user, setUser] = useState<User | null>(null);
     const [photoURL, setPhotoURL] = useState<string | null>(null); // State to store photo URL
     const [email, setUserEmail] = useState<string | null>(null);
+    const [videos, setVideos] = useState<any[]>([]);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedHelper((user) => {
@@ -30,11 +32,17 @@ export default function Account(){
                     })
                     .catch((error) => { console.log(error)
                     });
+
+                // Fetch user videos
+                getUserVideos().then(setVideos).catch(console.error);
                 } else {
                     console.log("photo url is NULL");
                     console.log("user email is NULL")
                     setPhotoURL(null);
                     setUserEmail(null);
+                    // clear videos on sign-out, array was filled with videos of previous user 
+                    // so you could see their videos for a split second
+                    setVideos([]);
                 }
             });
 
@@ -44,8 +52,6 @@ export default function Account(){
 
     const defaultImage = '/default_user.png';
     const defaultEmail = '';
-
-    // setUser(user);
 
     return (
         <div className={styles.accountPage}>
@@ -61,6 +67,16 @@ export default function Account(){
                 {user ? (email || defaultEmail) : defaultEmail}
             </h2>
             </div>
+                <h3 className={styles.heading}>
+                    {user ? "Your Videos" : "Sign in to see your videos"}
+                </h3>
+           {user && (
+            <div className={styles.mainGrid}>
+                {videos.map(v => (
+                <VideoCard key={v.id || v.filename} video={v} />
+                ))}
+            </div>
+            )}
         </div>
     );
 

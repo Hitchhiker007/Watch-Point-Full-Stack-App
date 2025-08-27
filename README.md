@@ -43,9 +43,10 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 
 ### 👤 Account Page
 
-| Account Page                   |
-| ------------------------------ |
-| ![Account Page](./account.png) |
+| Account Page                                  |
+| --------------------------------------------- |
+| ![Account Signed Out](./signedOutAccount.png) |
+| ![Account Signed In](./signedInAccount.png)   |
 
 ---
 

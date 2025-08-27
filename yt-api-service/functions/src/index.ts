@@ -277,4 +277,23 @@ export const getComments = onCall(async (request) => {
   return comments;
 });
 
+export const getUserVideos = onCall({ maxInstances: 1}, async (request) => {
+  const { uid } = request.auth ?? {}; // first pull the authenticated users uid
+  if (!uid) {
+    throw new Error("Not authenticated");
+  }
+
+  const querySnapshot = await firestore
+    .collection("videos")
+    .where("uid", "==", uid)
+    .where("status", "==", "processed")
+    .limit(50)
+    .get();
+
+    return querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+});
+
 

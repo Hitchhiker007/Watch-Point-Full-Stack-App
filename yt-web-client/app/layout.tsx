@@ -3,16 +3,6 @@ import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./navbar/navbar";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
 const roboto = Roboto({
   variable: "--font-roboto",   // define CSS variable
   subsets: ["latin"],
@@ -32,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // ${geistSans.variable} ${geistMono.variable}
         className={`${roboto.variable} antialiased`}
       >
         <Navbar />
