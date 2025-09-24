@@ -19,7 +19,6 @@ This project is a full stack app utilising Google Cloud Services. Users are allo
 
 ## ✨ Features
 
-- Modern, mobile-friendly UI for video browsing and playback
 - Video upload flow with metadata (title, description, genre) and thumbnail generation
 - Fully working video processing pipeline (raw upload → Pub/Sub → Cloud Run → processed video + thumbnail → Buckets & Firestore)
 - Persistent user state and authentication via Firebase (Google Sign-In)
@@ -29,7 +28,7 @@ This project is a full stack app utilising Google Cloud Services. Users are allo
 
 ## 🖼 Showcase
 
-Each of the following pages was designed for usability, layout clarity, and mobile responsiveness.
+Each of the following pages was designed for usability and layout clarity.
 
 ### 🏠 Home Page
 
@@ -78,13 +77,13 @@ Each of the following pages was designed for usability, layout clarity, and mobi
 - **CSS3** – Responsive layouts with reusable, modular styles
 - **TypeScript** – Component logic, type safety, and dynamic functionality
 - **JSON** – Data handling and API communication
-- **Next.js** – Frontend framework for server-side rendering and client-side routing
+- **Next.js** –
 - **Firebase**:
   - **Authentication** – Google Sign-In for user accounts
   - **Firestore** – Cloud-hosted NoSQL database for storing videos, metadata, comments, and user data
   - **Cloud Functions** – Serverless backend logic (HTTP & callable functions)
 - **Google Cloud Storage** – Buckets for raw videos, processed videos, and thumbnails
-- **Google Cloud Pub/Sub** – Event-driven video processing workflow for processing and generating thumbnails asynchronously
+- **Google Cloud Pub/Sub** – Event-driven video processing, for processing and generating thumbnails asynchronously
 - **FFmpeg** – Video and thumbnail processing utility for encoding, resizing, and generating preview images
 - **Google Cloud Run** – Serverless hosting and deployment for the video-processing microservice
 
