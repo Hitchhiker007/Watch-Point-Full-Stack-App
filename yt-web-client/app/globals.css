@@ -11,10 +11,10 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #bab8ba, #dfdee1); /* Purple to dark purple */
-  color: white; /* Optional: Set a text color that contrasts with the background */
-  font-family: Arial, sans-serif; /* Optional: Set a default font */
-  min-height: 100vh; /* Ensure it covers the full viewport height */
+  background: linear-gradient(135deg, #a0a0a8, #c8c7cc);
+  color: white;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
 }
 
 body.dark-mode {

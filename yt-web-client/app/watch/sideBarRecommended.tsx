@@ -6,6 +6,8 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../firebase/firebase";
 import VideoCard from "../components/videoCard"; // <-- import your VideoCard
 import styles from "./watch.module.css"; 
+import Image from "next/image";
+import Link from "next/link";
 
 export default function SidebarRecommended() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -39,11 +41,29 @@ export default function SidebarRecommended() {
     fetchVideosWithMeta();
   }, [firestore]);
 
-  return (
+ return (
     <aside className={styles.sidebar}>
+      {/* <div className={styles.recommendedTitle}>Recommended</div> */}
       <div className={styles.recommended}>
         {videos.map((video) => (
-          <VideoCard key={video.id || video.filename} video={video} />
+          <Link
+            key={video.id || video.filename}
+            href={`/watch?v=${video.filename}`}
+            className={styles.recommendedCard}
+          >
+            <Image
+              src={video.thumbnails?.[0] || "/thumbnail.png"}
+              alt={video.title || "Untitled"}
+              width={120}
+              height={68}
+              className={styles.recommendedThumbnail}
+              unoptimized
+            />
+            <div className={styles.recommendedInfo}>
+              <div className={styles.recommendedTitle_text}>{video.title || "Untitled"}</div>
+              {video.genre && <div className={styles.recommendedGenre}>{video.genre}</div>}
+            </div>
+          </Link>
         ))}
       </div>
     </aside>

@@ -55,31 +55,36 @@ export default function Account(){
     const defaultEmail = '';
 
     return (
-        <div className={styles.accountPage}>
-            <div className={styles.userProfile}>
-            <Image
-                src={user ? (photoURL || defaultImage) : defaultImage}
-                alt="User Profile"
-                width={120}
-                height={120}
-                className={styles.profileImage}
-                unoptimized
-            />
-            <h2 className={styles.userEmail}>
-                {user ? (email || defaultEmail) : defaultEmail}
-            </h2>
-            </div>
-                <h3 className={styles.heading}>
-                    {user ? "Your Videos" : "Sign in to see your videos"}
-                </h3>
-           {user && (
-            <div className={styles.mainGrid}>
-                {videos.map(v => (
-                <VideoCard key={v.id || v.filename} video={v} />
-                ))}
-            </div>
-            )}
-        </div>
-    );
+  <div className={styles.accountPage}>
+    <div className={styles.glassCard}>
+      <Image
+        src={user ? (photoURL || defaultImage) : defaultImage}
+        alt="User Profile"
+        width={80}
+        height={80}
+        className={styles.profileImage}
+        unoptimized
+      />
+      <div className={styles.profileDetails}>
+        <h2 className={styles.userEmail}>
+          {user ? (email || defaultEmail) : "Not signed in"}
+        </h2>
+        <span className={styles.badge}>Member</span>
+      </div>
+    </div>
+
+    <h3 className={styles.heading}>
+      {user ? "Your Videos" : "Sign in to see your videos"}
+    </h3>
+
+    {user && (
+      <div className={styles.mainGrid}>
+        {videos.map(v => (
+          <VideoCard key={v.id || v.filename} video={v} />
+        ))}
+      </div>
+    )}
+  </div>
+);
 
 };

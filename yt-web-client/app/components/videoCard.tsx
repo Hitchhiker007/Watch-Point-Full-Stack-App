@@ -70,8 +70,9 @@ export default function VideoCard({ video }: VideoCardProps) {
       <Image
         src={thumbnailUrl || "/thumbnail.png"}
         alt={meta.title || video.title || "Untitled"}
-        width={175}
-        height={100}
+        width={0}
+        height={0}
+        sizes="100vw"
         className={styles.thumbnail}
         unoptimized
       />

@@ -3,12 +3,13 @@
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "outDir": "lib",
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
   "compileOnSave": true,
   "include": [

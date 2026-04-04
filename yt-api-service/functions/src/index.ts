@@ -52,7 +52,7 @@ async function setVideo(
   .doc(videoId).set(videoData, { merge: true });
 }
 
-export const createUser = functions.auth.user().onCreate((user) => {
+export const createUser = functions.auth.user().onCreate((user: any) => {
     const userInfo = {
         uid: user.uid,
         email: user.email,
@@ -65,7 +65,7 @@ export const createUser = functions.auth.user().onCreate((user) => {
 });
 
 export const generateUploadUrl =
-    onCall({ maxInstances: 1 }, async (request) => {
+    onCall({ maxInstances: 1 }, async (request: any) => {
         // Check if the user is authentication
         if (!request.auth) {
             throw new functions.https.HttpsError(
@@ -132,10 +132,10 @@ export const getVideos = onCall({ maxInstances: 1 }, async () => {
         .limit(100)
         .get();
         // await firestore.collection(userCollectionId).limit(10).get;
-    return querySnapshot.docs.map((doc) => doc.data());
+    return querySnapshot.docs.map((doc: any) => doc.data());
 });
 
-export const getUserPhotoUrl = onCall({ maxInstances: 1 }, async (request) => {
+export const getUserPhotoUrl = onCall({ maxInstances: 1 }, async (request: any) => {
     if (!request.auth) {
         throw new functions.https.HttpsError(
             "failed-precondition",
@@ -158,7 +158,7 @@ export const getUserPhotoUrl = onCall({ maxInstances: 1 }, async (request) => {
     return { photoURL: userDoc.data()?.photoUrl || "" };
 });
 
-export const getUserEmail = onCall({ maxInstances: 1}, async (request) =>{
+export const getUserEmail = onCall({ maxInstances: 1}, async (request: any) =>{
     if (!request.auth) {
         throw new functions.https.HttpsError(
             "failed-precondition",
@@ -179,7 +179,7 @@ export const getUserEmail = onCall({ maxInstances: 1}, async (request) =>{
     return { email: userDoc.data()?.email || ""};
 });
 
-export const getUploaderInfo = onCall({ maxInstances: 1 }, async (request) => {
+export const getUploaderInfo = onCall({ maxInstances: 1 }, async (request: any) => {
   const { uid } = request.data as { uid: string };
 
   if (!uid) {
@@ -208,7 +208,7 @@ export const getUploaderInfo = onCall({ maxInstances: 1 }, async (request) => {
 });
 
 // ADD Comments to a video --------------------------------------->
-export const addComment = onCall(async (request) => {
+export const addComment = onCall(async (request: any) => {
   if (!request.auth) {
     throw new functions.https.
     HttpsError("failed-precondition", "You must be signed in to comment.");
@@ -248,7 +248,7 @@ export const addComment = onCall(async (request) => {
 });
 
 // GET Comments for a video ----------------------------------------->
-export const getComments = onCall(async (request) => {
+export const getComments = onCall(async (request: any) => {
   const { videoId } = request.data as { videoId: string };
 
   if (!videoId) {
@@ -261,7 +261,7 @@ export const getComments = onCall(async (request) => {
   const snapshot =
   await commentsRef.orderBy("createdAt", "desc").limit(50).get();
 
-  const comments = snapshot.docs.map((doc) => {
+  const comments = snapshot.docs.map((doc: any) => {
   const docData = doc.data();
   return {
     id: doc.id,
@@ -277,7 +277,7 @@ export const getComments = onCall(async (request) => {
   return comments;
 });
 
-export const getUserVideos = onCall({ maxInstances: 1}, async (request) => {
+export const getUserVideos = onCall({ maxInstances: 1}, async (request: any) => {
   const { uid } = request.auth ?? {}; // first pull the authenticated users uid
   if (!uid) {
     throw new Error("Not authenticated");
@@ -290,7 +290,7 @@ export const getUserVideos = onCall({ maxInstances: 1}, async (request) => {
     .limit(50)
     .get();
 
-    return querySnapshot.docs.map((doc) => ({
+    return querySnapshot.docs.map((doc: any) => ({
       id: doc.id,
       ...doc.data(),
     }));
