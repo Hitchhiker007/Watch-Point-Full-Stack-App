@@ -105,7 +105,7 @@ export const generateUploadUrl =
         return { url, fileName };
     });
 
-// doesnt need request, its a naive solution,
+// doesn't need request, it's a naive solution,
 // where we're just going to fetch 10 videos from the database
 // and render them in the ui
 
@@ -118,7 +118,7 @@ export const generateUploadUrl =
 // Currently no filter on the videos for certain criteria
 // (e.g., category, duration, tags, or user preferences).
 
-// No Metadatae as Video databases typically contain metadata such as
+// No Metadataa as Video databases typically contain metadata such as
 // video title, description, length, views, and so on.  for Pagination to
 // work we need to return these fields along with the video URL or video ID.
 

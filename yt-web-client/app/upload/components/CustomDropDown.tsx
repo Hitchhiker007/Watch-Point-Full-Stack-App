@@ -27,6 +27,7 @@ const CustomDropDown = (props: CustomDropDownProps) => {
                     marginTop: "4px",
                 }}
             >
+                <option value="" disabled>Select a genre</option>
                 {props.values.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.label}

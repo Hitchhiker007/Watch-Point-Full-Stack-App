@@ -7,13 +7,13 @@ import styles from "./form.module.css";
 import { uploadVideo } from "../../firebase/functions";
 
 const genre = [
-    { value: "comedy", label: "comedy" },
-    { value: "horror", label: "horror" },
-    { value: "educational", label: "educational" },
-    { value: "lifestyle", label: "lifestyle" },
-    { value: "business", label: "business" },
-    { value: "art", label: "art" },
-    { value: "gaming", label: "gaming" },
+    { value: "comedy", label: "Comedy" },
+    { value: "horror", label: "Horror" },
+    { value: "educational", label: "Educational" },
+    { value: "lifestyle", label: "Lifestyle" },
+    { value: "business", label: "Business" },
+    { value: "art", label: "Art" },
+    { value: "gaming", label: "Gaming" },
 ];
 
 type Values = {
@@ -68,24 +68,32 @@ const Form = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>Upload A Video</div>
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <input type="file" accept="video/*" onChange={handleFileChange} className={styles.fileInput} />
-
-                <CustomTextField changeHandler={handleChange} label="Title" name="title" />
-                <CustomTextField changeHandler={handleChange} label="Description" name="description" />
-                <CustomDropDown
-                    label="Genre"
-                    name="genre"
-                    changeHandler={handleChange}
-                    values={genre}
-                    currentValue={values.genre}
-                />
-
-                <button type="submit" className={styles.button}>Submit</button>
-            </form>
+    <div className={styles.container}>
+        <div className={styles.header}>Upload A Video</div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.fileInputWrapper}>
+            <span className={styles.fileLabel}>Video File</span>
+            <input
+            type="file"
+            accept="video/*"
+            onChange={handleFileChange}
+            className={styles.fileInput}
+            />
         </div>
+
+        <CustomTextField changeHandler={handleChange} label="Title" name="title" />
+        <CustomTextField changeHandler={handleChange} label="Description" name="description" />
+        <CustomDropDown
+            label="Genre"
+            name="genre"
+            changeHandler={handleChange}
+            values={genre}
+            currentValue={values.genre}
+        />
+
+        <button type="submit" className={styles.button}>Submit</button>
+        </form>
+    </div>
     );
 };
 
